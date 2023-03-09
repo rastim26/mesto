@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./normalize.css" />
+    <link rel="stylesheet" href="./style.css" />
+    <title>Mesto</title>
+  </head>
+  <body>
+    <div class="page">
+      <header class="header">
+        <img
+          src="./images/header__logo.svg"
+          alt="место лого"
+          class="header__logo"
+        />
+        <div class="header__line"></div>
+      </header>
+      <main class="content">
+        <section class="profile">
+          <div class="profile__user">
+            <img
+              src="./images/header__avatar.jpeg"
+              alt="аватар"
+              class="profile__avatar"
+            />
+            <div class="profile__info">
+              <h1 class="profile__title" grid-area="title">Жак-Ив Кусто</h1>
+              <button class="profile__edit-button" grid-area="edit-button">
+                <img
+                  class="profile__edit-icon"
+                  src="images/pen.svg"
+                  alt="карандаш"
+                />
+              </button>
+              <p class="profile__subtitle" grid-area="subtitle">
+                Исследователь океана
+              </p>
+            </div>
+          </div>
+          <button class="profile__add-button">
+            <img
+              src="./images/plus.svg"
+              alt="добавить"
+              class="profile__add-icon"
+            />
+          </button>
+        </section>
+        <!-- /.profile -->
+        <section class="gallery">
+          <ul class="cards">
+            <li class="cards__card">
+              <img
+                src="./images/elements__karachaevsk.jpeg"
+                alt="карачаевск"
+                class="cards__thumbnail"
+              />
+              <div class="cards__descr">
+                <h2 class="cards__title">Карачаевск</h2>
+                <img
+                  src="./images/heart.svg"
+                  alt="понравилось"
+                  class="cards__icon"
+                />
+              </div>
+            </li>
+            <li class="cards__card">
+              <img
+                src="./images/elements__elbrus.jpeg"
+                alt="эльбрус"
+                class="cards__thumbnail"
+              />
+              <div class="cards__descr">
+                <h2 class="cards__title">Гора Эльбрус</h2>
+                <img
+                  src="./images/heart.svg"
+                  alt="понравилось"
+                  class="cards__icon"
+                />
+              </div>
+            </li>
+            <li class="cards__card">
+              <img
+                src="./images/elements__dombai.jpeg"
+                alt="домбай"
+                class="cards__thumbnail"
+              />
+              <div class="cards__descr">
+                <h2 class="cards__title">Домбай</h2>
+                <img
+                  src="./images/heart.svg"
+                  alt="понравилось"
+                  class="cards__icon"
+                />
+              </div>
+            </li>
+            <li class="cards__card">
+              <img
+                src="./images/elements__elbrus.jpeg"
+                alt="эльбрус"
+                class="cards__thumbnail"
+              />
+              <div class="cards__descr">
+                <h2 class="cards__title">Гора Эльбрус</h2>
+                <img
+                  src="./images/heart.svg"
+                  alt="понравилось"
+                  class="cards__icon"
+                />
+              </div>
+            </li>
+            <li class="cards__card">
+              <img
+                src="./images/elements__dombai.jpeg"
+                alt="домбай"
+                class="cards__thumbnail"
+              />
+              <div class="cards__descr">
+                <h2 class="cards__title">Домбай</h2>
+                <img
+                  src="./images/heart.svg"
+                  alt="понравилось"
+                  class="cards__icon"
+                />
+              </div>
+            </li>
+            <li class="cards__card">
+              <img
+                src="./images/elements__karachaevsk.jpeg"
+                alt="карачаевск"
+                class="cards__thumbnail"
+              />
+              <div class="cards__descr">
+                <h2 class="cards__title">Карачаево-Ч...</h2>
+                <img
+                  src="./images/heart.svg"
+                  alt="понравилось"
+                  class="cards__icon"
+                />
+              </div>
+            </li>
+          </ul>
+        </section>
+        <!-- /.elements -->
+      </main>
+      <footer class="footer">
+        <p class="footer__copyright">&#169; 2023 Rastim Safarov</p>
+      </footer>
+    </div>
+    <!-- /.page -->
+    <div class="popup"></div>
+    <!-- /.popup -->
+  </body>
+</html>
