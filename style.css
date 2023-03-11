@@ -8,7 +8,7 @@
 
 .header {
   max-width: 880px;
-  padding: 45px 20px 0;
+  padding: 45px 27px 0;
   margin: 0 auto;
 }
 
@@ -27,7 +27,7 @@
 
 .profile {
   max-width: 880px;
-  padding: 40px 20px 0;
+  padding: 40px 19px 0;
   margin: 0 auto;
   display: flex;
   justify-content: space-between;
@@ -118,7 +118,7 @@
 
 .gallery {
   max-width: 880px;
-  padding: 50px 20px 0;
+  padding: 50px 19px 0;
   margin: 0 auto;
 }
 
@@ -176,7 +176,7 @@
 
 .footer {
   max-width: 880px;
-  padding: 67px 20px 60px;
+  padding: 67px 19px 60px;
   margin: 0 auto;
 }
 
@@ -217,7 +217,7 @@
   font-style: normal;
   font-weight: 900;
   font-size: 24px;
-  line-height: 29px;
+  line-height: 1.22;
   color: #000000;
   margin: 0 0 50px;
 }
@@ -272,6 +272,8 @@
   padding: 0;
   border: 0;
   background-color: rgba(0, 0, 0, 0);
+  width: 32px;
+  height: 32px;
 }
 
 .edit-form__close-btn:hover {
@@ -280,4 +282,93 @@
 
 .edit-form__close-icon {
   display: block;
+  width: 100%;
+}
+
+@media (max-width: 690px) {
+  .profile {
+    flex-direction: column;
+    gap: 36px;
+  }
+
+  .cards {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 540px) {
+  .cards {
+    grid-template-columns: 1fr;
+  }
+
+  .edit-form__close-btn {
+    right: 0;
+  }
+}
+
+@media (max-width: 450px) {
+  .header {
+    padding-top: 28px;
+  }
+
+  .header__logo {
+    margin-bottom: 32px;
+  }
+
+  .profile__user {
+    flex-direction: column;
+    gap: 25px;
+    align-items: center;
+  }
+
+  .profile__info {
+    text-align: center;
+    column-gap: 10px;
+    row-gap: 14px;
+  }
+
+  .profile__add-button {
+    width: 100%;
+  }
+
+  .gallery {
+    padding-top: 36px;
+  }
+
+  .footer {
+    padding-top: 48px;
+    padding-bottom: 36px;
+  }
+
+  .footer__copyright {
+    font-size: 14px;
+    line-height: 1.21;
+  }
+
+  .edit-form {
+    width: 282px;
+    min-height: 322px;
+    top: calc(50vh - 322px / 2);
+    left: calc(50vw - 282px / 2);
+    padding: 25px 22px;
+  }
+
+  .edit-form__title {
+    font-size: 18px;
+    margin-bottom: 75px;
+  }
+
+  .edit-form__input {
+    margin-bottom: 45px;
+  }
+
+  .edit-form__save {
+    font-size: 14px;
+    height: 46px;
+  }
+
+  .edit-form__close-btn {
+    width: 22px;
+    height: 22px;
+  }
 }
