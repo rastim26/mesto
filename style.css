@@ -76,8 +76,10 @@
   position: relative;
   bottom: 9px;
   left: 0px;
-  /* display: grid; */
-  /* align-self: end; */
+}
+
+.profile__edit-button:hover {
+  opacity: 0.6;
 }
 
 .profile__edit-icon {
@@ -103,6 +105,10 @@
   border: 2px solid #fff;
   background-color: #000;
   padding: 0;
+}
+
+.profile__add-button:hover {
+  opacity: 0.6;
 }
 
 .profile__add-icon {
@@ -160,6 +166,14 @@
   width: 22px;
 }
 
+.cards__icon:hover {
+  opacity: 0.5;
+}
+
+.cards__icon:active {
+  background-color: #000;
+}
+
 .footer {
   max-width: 880px;
   padding: 67px 20px 60px;
@@ -183,7 +197,7 @@
   top: 0;
   left: 0;
   background-color: rgba(0, 0, 0, 0.5);
-  /* display: none; */
+  display: none;
 }
 
 .edit-form {
@@ -247,6 +261,10 @@
   text-transform: capitalize;
 }
 
+.edit-form__save:hover {
+  opacity: 0.8;
+}
+
 .edit-form__close-btn {
   position: absolute;
   top: -40px;
@@ -254,6 +272,10 @@
   padding: 0;
   border: 0;
   background-color: rgba(0, 0, 0, 0);
+}
+
+.edit-form__close-btn:hover {
+  opacity: 0.6;
 }
 
 .edit-form__close-icon {
