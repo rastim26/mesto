@@ -9,8 +9,8 @@
     <link rel="stylesheet" href="./style.css" />
     <title>Mesto</title>
   </head>
-  <body>
-    <div class="page">
+  <body class="page">
+    <div class="page__container">
       <header class="header">
         <img
           src="./images/header__logo.svg"
@@ -37,7 +37,7 @@
                 />
               </button>
               <p class="profile__subtitle" grid-area="subtitle">
-                Исследователь океана
+                исследователь океана
               </p>
             </div>
           </div>
@@ -59,7 +59,7 @@
                 class="cards__thumbnail"
               />
               <div class="cards__descr">
-                <h2 class="cards__title">Карачаевск</h2>
+                <h2 class="cards__title">карачаевск</h2>
                 <img
                   src="./images/heart.svg"
                   alt="понравилось"
@@ -74,7 +74,7 @@
                 class="cards__thumbnail"
               />
               <div class="cards__descr">
-                <h2 class="cards__title">Гора Эльбрус</h2>
+                <h2 class="cards__title">гора эльбрус</h2>
                 <img
                   src="./images/heart.svg"
                   alt="понравилось"
@@ -89,7 +89,7 @@
                 class="cards__thumbnail"
               />
               <div class="cards__descr">
-                <h2 class="cards__title">Домбай</h2>
+                <h2 class="cards__title">домбай</h2>
                 <img
                   src="./images/heart.svg"
                   alt="понравилось"
@@ -104,7 +104,7 @@
                 class="cards__thumbnail"
               />
               <div class="cards__descr">
-                <h2 class="cards__title">Гора Эльбрус</h2>
+                <h2 class="cards__title">гора эльбрус</h2>
                 <img
                   src="./images/heart.svg"
                   alt="понравилось"
@@ -119,7 +119,7 @@
                 class="cards__thumbnail"
               />
               <div class="cards__descr">
-                <h2 class="cards__title">Домбай</h2>
+                <h2 class="cards__title">домбай</h2>
                 <img
                   src="./images/heart.svg"
                   alt="понравилось"
@@ -134,7 +134,7 @@
                 class="cards__thumbnail"
               />
               <div class="cards__descr">
-                <h2 class="cards__title">Карачаево-Ч...</h2>
+                <h2 class="cards__title">карачаево-ч...</h2>
                 <img
                   src="./images/heart.svg"
                   alt="понравилось"
@@ -150,8 +150,22 @@
         <p class="footer__copyright">&#169; 2023 Rastim Safarov</p>
       </footer>
     </div>
-    <!-- /.page -->
-    <div class="popup"></div>
-    <!-- /.popup -->
+    <!-- /.page__container -->
+    <section class="form-container">
+      <form action="" class="edit-form">
+        <h2 class="edit-form__title">Редактировать профиль</h2>
+        <input type="text" class="edit-form__input" placeholder="полное имя" />
+        <input type="text" class="edit-form__input" placeholder="профессия" />
+        <input type="submit" class="edit-form__save" value="сохранить" />
+        <button class="edit-form__close-btn">
+          <img
+            src="./images/Close_Icon.svg"
+            alt="закрыть"
+            class="edit-form__close-icon"
+          />
+        </button>
+      </form>
+    </section>
+    <!-- /.form-container -->
   </body>
 </html>
