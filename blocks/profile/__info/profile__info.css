@@ -7,11 +7,13 @@
     "subtitle .";
   column-gap: 18px;
   row-gap: 16px;
+  padding-top: 4px;
 }
 @media (max-width: 450px) {
-    .profile__info {
-        text-align: center;
-        column-gap: 11px;
-        row-gap: 7px;
-      }
+  .profile__info {
+    text-align: center;
+    column-gap: 11px;
+    row-gap: 7px;
+    padding-left: 28px;
+  }
 }

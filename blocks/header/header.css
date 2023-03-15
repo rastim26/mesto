@@ -1,10 +1,19 @@
 .header {
+  border-bottom: 1px solid rgb(84, 84, 84, 0.7);
   max-width: 880px;
-  padding: 45px 27px 0;
   margin: 0 auto;
+  padding: 45px 0 40px;
 }
+
+@media (max-width: 900px) {
+  .header {
+    padding-left: 27px;
+  }
+}
+
 @media (max-width: 450px) {
-    .header {
-        padding-top: 28px;
-      }
+  .header {
+    padding-top: 28px;
+    padding-bottom: 31px;
+  }
 }

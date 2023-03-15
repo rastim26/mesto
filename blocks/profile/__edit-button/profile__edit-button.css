@@ -2,18 +2,22 @@
   padding: 0;
   width: 24px;
   height: 24px;
-  background-color: #000;
   border: solid 1px #fff;
-  position: relative;
-  bottom: 9px;
-  left: 0px;
+  margin-bottom: 7px;
+  background-color: rgba(0, 0, 0, 0);
+  background-image: url(../../../images/pen.svg);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 10px 10px;
+  cursor: pointer;
 }
 .profile__edit-button:hover {
   opacity: 0.6;
 }
 @media (max-width: 450px) {
-    .profile__edit-button {
-        width: 18px;
-        height: 18px;
-      }
+  .profile__edit-button {
+    width: 18px;
+    height: 18px;
+    background-size: 7.5px 7.5px;
+  }
 }

@@ -13,13 +13,14 @@
   text-align: center;
   color: #ffffff;
   text-transform: capitalize;
+  cursor: pointer;
 }
 .popup__save:hover {
   opacity: 0.8;
 }
 @media (max-width: 450px) {
-    .popup__save {
-        font-size: 14px;
-        height: 46px;
-      }
+  .popup__save {
+    font-size: 14px;
+    height: 46px;
+  }
 }

@@ -15,7 +15,6 @@
           alt="место лого"
           class="header__logo"
         />
-        <div class="header__line"></div>
       </header>
       <main class="content">
         <section class="profile">
@@ -27,25 +26,22 @@
             />
             <div class="profile__info">
               <h1 class="profile__title" grid-area="title">Жак-Ив Кусто</h1>
-              <button class="profile__edit-button" grid-area="edit-button">
-                <img
-                  class="profile__edit-icon"
-                  src="images/pen.svg"
-                  alt="карандаш"
-                />
-              </button>
+              <button
+                type="button"
+                aria-label="Edit"
+                class="profile__edit-button"
+                grid-area="edit-button"
+              ></button>
               <p class="profile__subtitle" grid-area="subtitle">
-                исследователь океана
+                Исследователь океана
               </p>
             </div>
           </div>
-          <button class="profile__add-button">
-            <img
-              src="./images/plus.svg"
-              alt="добавить"
-              class="profile__add-icon"
-            />
-          </button>
+          <button
+            type="button"
+            aria-label="Add"
+            class="profile__add-button"
+          ></button>
         </section>
         <!-- /.profile -->
         <section class="gallery">
@@ -58,11 +54,11 @@
               />
               <div class="cards__descr">
                 <h2 class="cards__title">карачаевск</h2>
-                <img
-                  src="./images/heart.svg"
-                  alt="понравилось"
-                  class="cards__icon"
-                />
+                <button
+                  aria-label="Like"
+                  class="cards__button"
+                  type="button"
+                ></button>
               </div>
             </li>
             <li class="cards__card">
@@ -73,11 +69,7 @@
               />
               <div class="cards__descr">
                 <h2 class="cards__title">гора эльбрус</h2>
-                <img
-                  src="./images/heart.svg"
-                  alt="понравилось"
-                  class="cards__icon"
-                />
+                <button class="cards__button" type="button"></button>
               </div>
             </li>
             <li class="cards__card">
@@ -88,11 +80,7 @@
               />
               <div class="cards__descr">
                 <h2 class="cards__title">домбай</h2>
-                <img
-                  src="./images/heart.svg"
-                  alt="понравилось"
-                  class="cards__icon"
-                />
+                <button class="cards__button" type="button"></button>
               </div>
             </li>
             <li class="cards__card">
@@ -103,11 +91,7 @@
               />
               <div class="cards__descr">
                 <h2 class="cards__title">гора эльбрус</h2>
-                <img
-                  src="./images/heart.svg"
-                  alt="понравилось"
-                  class="cards__icon"
-                />
+                <button class="cards__button" type="button"></button>
               </div>
             </li>
             <li class="cards__card">
@@ -118,11 +102,7 @@
               />
               <div class="cards__descr">
                 <h2 class="cards__title">домбай</h2>
-                <img
-                  src="./images/heart.svg"
-                  alt="понравилось"
-                  class="cards__icon"
-                />
+                <button class="cards__button" type="button"></button>
               </div>
             </li>
             <li class="cards__card">
@@ -133,11 +113,7 @@
               />
               <div class="cards__descr">
                 <h2 class="cards__title">карачаево-черкессия</h2>
-                <img
-                  src="./images/heart.svg"
-                  alt="понравилось"
-                  class="cards__icon"
-                />
+                <button class="cards__button" type="button"></button>
               </div>
             </li>
           </ul>
@@ -150,31 +126,28 @@
     </div>
     <!-- /.page__container -->
     <section class="popup">
-      <form class="popup__container">
+      <div class="popup__container">
         <h2 class="popup__title">Редактировать профиль</h2>
-        <input
-          id="name"
-          type="text"
-          class="popup__input"
-          value="Жак-Ив Кусто"
-        />
-        <input
-          id="job"
-          type="text"
-          class="popup__input"
-          value="Исследователь океана"
-        />
-        <input type="submit" class="popup__save" value="сохранить" />
-        <button class="popup__close-btn">
+        <form name="form" class="popup__form">
+          <input id="name" name="name" type="text" class="popup__input" />
+          <input id="job" name="job" type="text" class="popup__input" />
+          <input
+            type="submit"
+            aria-label="Save"
+            class="popup__save"
+            value="сохранить"
+          />
+        </form>
+        <button type="button" aria-label="Close" class="popup__close-btn">
           <img
             src="./images/Close_Icon.svg"
             alt="закрыть"
             class="popup__close-icon"
           />
         </button>
-      </form>
+      </div>
     </section>
     <!-- /.popup -->
-    <script src="./index.js"></script>
+    <script src="./scripts/index.js"></script>
   </body>
 </html>
