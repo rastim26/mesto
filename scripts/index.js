@@ -12,8 +12,8 @@ let profileSubtitleElem = document.querySelector(".profile__subtitle");
 function openPopup() {
   popupElem.classList.add("popup_opened");
 
-  nameInput.value = profileTitleElem.innerText;
-  jobInput.value = profileSubtitleElem.innerText;
+  nameInput.value = profileTitleElem.textContent;
+  jobInput.value = profileSubtitleElem.textContent;
 }
 
 function closePopup() {
