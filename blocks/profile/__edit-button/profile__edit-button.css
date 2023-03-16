@@ -3,7 +3,8 @@
   width: 24px;
   height: 24px;
   border: solid 1px #fff;
-  margin-bottom: 7px;
+  margin-bottom: 24px;
+  margin-left: 18px;
   background-color: rgba(0, 0, 0, 0);
   background-image: url(../../../images/pen.svg);
   background-repeat: no-repeat;
@@ -19,5 +20,8 @@
     width: 18px;
     height: 18px;
     background-size: 7.5px 7.5px;
+    position: absolute;
+    top: 155px;
+    left: 180px;
   }
 }
