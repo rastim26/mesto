@@ -1,111 +1,109 @@
-const editButtonElem = document.querySelector(".profile__edit-button");
-// const popupElem = document.querySelector(".popup");
-// const closeButtonElem = popupElem.querySelector(".popup__close-btn");
+const initialCards = [
+  {
+    name: "Архыз",
+    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg",
+  },
+  {
+    name: "Челябинская область",
+    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg",
+  },
+  {
+    name: "Иваново",
+    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg",
+  },
+  {
+    name: "Камчатка",
+    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg",
+  },
+  {
+    name: "Холмогорский район",
+    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg",
+  },
+  {
+    name: "Байкал",
+    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg",
+  },
+];
 
-// // const formElem = popupElem.querySelector(".popup__container");
-// const nameInput = formElem.querySelector("#name");
-// const jobInput = formElem.querySelector("#job");
+const pageElement = document.querySelector(".page");
 
 const profileTitleElem = document.querySelector(".profile__title");
 const profileSubtitleElem = document.querySelector(".profile__subtitle");
 
-// function openPopup() {
-//   // popupElem.classList.add("popup_opened");
-
-//   nameInput.value = profileTitleElem.textContent;
-//   jobInput.value = profileSubtitleElem.textContent;
-// }
-
-// function closePopup() {
-//   popupElem.classList.remove("popup_opened");
-// }
-
-// function handleFormSubmit(evt) {
-//   evt.preventDefault();
-
-//   const nameValue = nameInput.value;
-//   const jobValue = jobInput.value;
-
-//   profileTitleElem.textContent = nameValue;
-//   profileSubtitleElem.textContent = jobValue;
-
-//   closePopup();
-// }
-
-// editButtonElem.addEventListener("click", openPopup);
-// closeButtonElem.addEventListener("click", closePopup);
-// formElem.addEventListener("submit", handleFormSubmit);
-
-/* ----------------- Открытие окна редактирования --------------- */
-
-const popupTemplate = document.querySelector(".template-popup").content;
-const pageElement = document.querySelector(".page");
-
-const popupElement = popupTemplate.querySelector(".popup").cloneNode(true);
-
-const nameInput = popupElement.querySelector("#name");
-const jobInput = popupElement.querySelector("#job");
-
-function openPopup() {
-  pageElement.append(popupElement);
-}
-
-function openEditPopup() {
-  popupElement.querySelector(".popup__title").textContent =
-    "Редактировать профиль";
-
-  popupElement.querySelector(".popup__button").value = "сохранить";
-
-  nameInput.value = profileTitleElem.textContent;
-  jobInput.value = profileSubtitleElem.textContent;
-
-  openPopup();
-}
-
-editButtonElem.addEventListener("click", openEditPopup);
-
-/* -------------- Открытие окна добавления ------------ */
-
+const editButtonElem = document.querySelector(".profile__edit-button");
 const addButtonElem = document.querySelector(".profile__add-button");
 
-function openAddPopup() {
-  popupElement.querySelector(".popup__title").textContent = "Новое место";
+const popupTemplate = document.querySelector(".template-popup").content;
 
-  popupElement.querySelector(".popup__button").value = "создать";
+/* ----------------- Окно редактирования --------------- */
 
-  popupElement.querySelector("#name").placeholder = "Название";
+const editPopupElement = popupTemplate.querySelector(".popup").cloneNode(true);
+const titleEditPopupElem = editPopupElement.querySelector(".popup__title");
+const nameInputEditPopupElem = editPopupElement.querySelector("#name");
+const jobInputEditPopupElem = editPopupElement.querySelector("#job");
+const buttonEditPopupElem = editPopupElement.querySelector(".popup__button");
+const closeButtonEditPopupElem =
+  editPopupElement.querySelector(".popup__close-btn");
 
-  popupElement.querySelector("#job").placeholder = "Ссылка на картинку";
-
-  console.dir(popupElement.querySelector("#name"));
-
-  openPopup();
+function openEditPopup() {
+  titleEditPopupElem.textContent = "Редактировать профиль";
+  buttonEditPopupElem.value = "сохранить";
+  nameInputEditPopupElem.value = profileTitleElem.textContent;
+  jobInputEditPopupElem.value = profileSubtitleElem.textContent;
+  pageElement.append(editPopupElement);
 }
 
-addButtonElem.addEventListener("click", openAddPopup);
-
-/* ----------------- Закрытие окна --------------- */
-
-const closePopupButton = popupElement.querySelector(".popup__close-btn");
-
-function closeEditPopup(event) {
-  const currentPopupElement = event.target.closest(".popup");
+function closeEditPopup(evt) {
+  const currentPopupElement = evt.target.closest(".popup");
   currentPopupElement.remove();
 }
 
-closePopupButton.addEventListener("click", closeEditPopup);
-
-/* ----------------- Обработка формы --------------- */
-
-const popupButton = popupElement.querySelector(".popup__button");
-
-function handleFormSubmit(evt) {
+function handleEditFormSubmit(evt) {
   evt.preventDefault();
-
-  profileTitleElem.textContent = nameInput.value;
-  profileSubtitleElem.textContent = jobInput.value;
-
+  profileTitleElem.textContent = nameInputEditPopupElem.value;
+  profileSubtitleElem.textContent = jobInputEditPopupElem.value;
   closeEditPopup(evt);
 }
 
-popupButton.addEventListener("click", handleFormSubmit);
+editButtonElem.addEventListener("click", openEditPopup);
+closeButtonEditPopupElem.addEventListener("click", closeEditPopup);
+buttonEditPopupElem.addEventListener("click", handleEditFormSubmit);
+
+/* -------------- Окно добавления ------------ */
+
+const addPopupElement = popupTemplate.querySelector(".popup").cloneNode(true);
+const titleAddPopupElem = addPopupElement.querySelector(".popup__title");
+const nameInputAddPopupElem = addPopupElement.querySelector("#name");
+const jobInputAddPopupElem = addPopupElement.querySelector("#job");
+const buttonAddPopupElem = addPopupElement.querySelector(".popup__button");
+const closeButtonAddPopupElem =
+  addPopupElement.querySelector(".popup__close-btn");
+
+function openAddPopup() {
+  titleAddPopupElem.textContent = "Новое место";
+  buttonAddPopupElem.value = "создать";
+  nameInputAddPopupElem.placeholder = "Название";
+  jobInputAddPopupElem.placeholder = "Ссылка на картинку";
+  pageElement.append(addPopupElement);
+}
+
+function closeAddPopup(evt) {
+  const currentPopupElement = evt.target.closest(".popup");
+
+  nameInputAddPopupElem.value = "";
+  jobInputAddPopupElem.value = "";
+  currentPopupElement.remove();
+}
+
+function handleAddFormSubmit(evt) {
+  evt.preventDefault();
+  initialCards.push({
+    name: nameInputAddPopupElem.value,
+    link: jobInputAddPopupElem.value,
+  });
+  closeAddPopup(evt);
+}
+
+addButtonElem.addEventListener("click", openAddPopup);
+closeButtonAddPopupElem.addEventListener("click", closeAddPopup);
+buttonAddPopupElem.addEventListener("click", handleAddFormSubmit);
