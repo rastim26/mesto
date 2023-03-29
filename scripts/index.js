@@ -35,7 +35,7 @@ const addButtonElem = document.querySelector(".profile__add-button");
 
 const popupTemplate = document.querySelector(".template-popup").content;
 
-/* ----------------- Окно редактирования --------------- */
+/* ----------------- Change profile --------------- */
 
 const editPopupElement = popupTemplate.querySelector(".popup").cloneNode(true);
 const titleEditPopupElem = editPopupElement.querySelector(".popup__title");
@@ -101,10 +101,13 @@ function handleAddFormSubmit(evt) {
   const cardElem = cardTemplate.querySelector(".cards__card").cloneNode(true);
   const imgCardElem = cardElem.querySelector(".cards__thumbnail");
   const titleCardElem = cardElem.querySelector(".cards__title");
+  const likeCardElem = cardElem.querySelector(".cards__button");
 
   imgCardElem.src = jobInputAddPopupElem.value;
   imgCardElem.alt = nameInputAddPopupElem.value;
   titleCardElem.textContent = nameInputAddPopupElem.value;
+
+  likeCardElem.addEventListener("click", likePlace);
 
   document.querySelector(".cards").prepend(cardElem);
 
@@ -121,16 +124,24 @@ const cardTemplate = document.querySelector(".template-card").content;
 
 initialCards.forEach(loadInitialCards);
 
-function loadInitialCards(item, index) {
+function loadInitialCards(item) {
   const cardElem = cardTemplate.querySelector(".cards__card").cloneNode(true);
   const imgCardElem = cardElem.querySelector(".cards__thumbnail");
   const titleCardElem = cardElem.querySelector(".cards__title");
-  // const likeCardElem = cardElem.querySelector(".cards__button");
-  // const delCardElem = cardElem.querySelector(".cards__button-delete");
+
+  const likeCardElem = cardElem.querySelector(".cards__button");
 
   titleCardElem.textContent = item["name"];
   imgCardElem.alt = item["name"];
   imgCardElem.src = item["link"];
 
+  likeCardElem.addEventListener("click", likePlace);
+
   document.querySelector(".cards").append(cardElem);
 }
+
+function likePlace(evt) {
+  evt.target.classList.toggle("cards__button_active");
+}
+
+// const delCardElem = cardElem.querySelector(".cards__button-delete");
