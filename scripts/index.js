@@ -97,13 +97,40 @@ function closeAddPopup(evt) {
 
 function handleAddFormSubmit(evt) {
   evt.preventDefault();
-  initialCards.push({
-    name: nameInputAddPopupElem.value,
-    link: jobInputAddPopupElem.value,
-  });
+
+  const cardElem = cardTemplate.querySelector(".cards__card").cloneNode(true);
+  const imgCardElem = cardElem.querySelector(".cards__thumbnail");
+  const titleCardElem = cardElem.querySelector(".cards__title");
+
+  imgCardElem.src = jobInputAddPopupElem.value;
+  imgCardElem.alt = nameInputAddPopupElem.value;
+  titleCardElem.textContent = nameInputAddPopupElem.value;
+
+  document.querySelector(".cards").prepend(cardElem);
+
   closeAddPopup(evt);
 }
 
 addButtonElem.addEventListener("click", openAddPopup);
 closeButtonAddPopupElem.addEventListener("click", closeAddPopup);
 buttonAddPopupElem.addEventListener("click", handleAddFormSubmit);
+
+/* -------------- Add card ------------ */
+
+const cardTemplate = document.querySelector(".template-card").content;
+
+initialCards.forEach(loadInitialCards);
+
+function loadInitialCards(item, index) {
+  const cardElem = cardTemplate.querySelector(".cards__card").cloneNode(true);
+  const imgCardElem = cardElem.querySelector(".cards__thumbnail");
+  const titleCardElem = cardElem.querySelector(".cards__title");
+  // const likeCardElem = cardElem.querySelector(".cards__button");
+  // const delCardElem = cardElem.querySelector(".cards__button-delete");
+
+  titleCardElem.textContent = item["name"];
+  imgCardElem.alt = item["name"];
+  imgCardElem.src = item["link"];
+
+  document.querySelector(".cards").append(cardElem);
+}

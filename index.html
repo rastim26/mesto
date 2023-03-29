@@ -43,27 +43,40 @@
         <!-- /.profile -->
         <section class="gallery">
           <ul class="cards">
-            <li class="cards__card">
-              <img
-                src="./images/elements__karachaevsk.jpeg"
-                alt="карачаевск"
-                class="cards__thumbnail"
-              />
-              <div class="cards__descr">
-                <h2 class="cards__title">карачаевск</h2>
-                <button
-                  aria-label="Like"
-                  class="cards__button"
+            <template class="template-card">
+              <li class="cards__card">
+                <img
+                  src="./images/elements__karachaevsk.jpeg"
+                  alt="карачаевск"
+                  class="cards__thumbnail"
+                />
+                <!-- <button
+                  aria-label="Delete"
+                  class="cards__button-delete"
                   type="button"
-                ></button>
-              </div>
-            </li>
-            <li class="cards__card">
+                ></button> -->
+                <div class="cards__descr">
+                  <h2 class="cards__title">карачаевск</h2>
+                  <button
+                    aria-label="Like"
+                    class="cards__button"
+                    type="button"
+                  ></button>
+                </div>
+              </li>
+            </template>
+            <!-- <li class="cards__card">
               <img
                 src="./images/elements__elbrus.jpeg"
                 alt="эльбрус"
                 class="cards__thumbnail"
               />
+              <button
+                aria-label="Delete"
+                class="cards__button-delete"
+                type="button"
+              ></button>
+
               <div class="cards__descr">
                 <h2 class="cards__title">гора эльбрус</h2>
                 <button
@@ -72,8 +85,8 @@
                   type="button"
                 ></button>
               </div>
-            </li>
-            <li class="cards__card">
+            </li> -->
+            <!-- <li class="cards__card">
               <img
                 src="./images/elements__dombai.jpeg"
                 alt="домбай"
@@ -132,7 +145,7 @@
                   type="button"
                 ></button>
               </div>
-            </li>
+            </li> -->
           </ul>
         </section>
         <!-- /.elements -->
