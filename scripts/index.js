@@ -102,12 +102,14 @@ function handleAddFormSubmit(evt) {
   const imgCardElem = cardElem.querySelector(".cards__thumbnail");
   const titleCardElem = cardElem.querySelector(".cards__title");
   const likeCardElem = cardElem.querySelector(".cards__button");
+  const delCardElem = cardElem.querySelector(".cards__button-del");
 
   imgCardElem.src = jobInputAddPopupElem.value;
   imgCardElem.alt = nameInputAddPopupElem.value;
   titleCardElem.textContent = nameInputAddPopupElem.value;
 
   likeCardElem.addEventListener("click", likePlace);
+  delCardElem.addEventListener("click", deleteCard);
 
   document.querySelector(".cards").prepend(cardElem);
 
@@ -128,13 +130,14 @@ function loadInitialCards(item) {
   const cardElem = cardTemplate.querySelector(".cards__card").cloneNode(true);
   const imgCardElem = cardElem.querySelector(".cards__thumbnail");
   const titleCardElem = cardElem.querySelector(".cards__title");
-
   const likeCardElem = cardElem.querySelector(".cards__button");
+  const delCardElem = cardElem.querySelector(".cards__button-del");
 
   titleCardElem.textContent = item["name"];
   imgCardElem.alt = item["name"];
   imgCardElem.src = item["link"];
 
+  delCardElem.addEventListener("click", deleteCard);
   likeCardElem.addEventListener("click", likePlace);
 
   document.querySelector(".cards").append(cardElem);
@@ -144,4 +147,6 @@ function likePlace(evt) {
   evt.target.classList.toggle("cards__button_active");
 }
 
-// const delCardElem = cardElem.querySelector(".cards__button-delete");
+function deleteCard(evt) {
+  evt.target.closest(".cards__card").remove();
+}
