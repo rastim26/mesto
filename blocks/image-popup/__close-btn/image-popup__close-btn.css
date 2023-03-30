@@ -1,0 +1,25 @@
+.image-popup__close-btn {
+  position: absolute;
+  top: -40px;
+  right: -40px;
+  padding: 0;
+  border: 0;
+  background-color: rgba(0, 0, 0, 0);
+  width: 32px;
+  height: 32px;
+  cursor: pointer;
+}
+.image-popup__close-btn:hover {
+  opacity: 0.6;
+}
+@media (max-width: 540px) {
+  .image-popup__close-btn {
+    right: 0;
+  }
+}
+@media (max-width: 450px) {
+  .image-popup__close-btn {
+    width: 22px;
+    height: 22px;
+  }
+}

@@ -110,6 +110,7 @@ function handleAddFormSubmit(evt) {
 
   likeCardElem.addEventListener("click", likePlace);
   delCardElem.addEventListener("click", deleteCard);
+  imgCardElem.addEventListener("click", openImagePopup);
 
   document.querySelector(".cards").prepend(cardElem);
 
@@ -139,6 +140,7 @@ function loadInitialCards(item) {
 
   delCardElem.addEventListener("click", deleteCard);
   likeCardElem.addEventListener("click", likePlace);
+  imgCardElem.addEventListener("click", openImagePopup);
 
   document.querySelector(".cards").append(cardElem);
 }
@@ -150,3 +152,47 @@ function likePlace(evt) {
 function deleteCard(evt) {
   evt.target.closest(".cards__card").remove();
 }
+
+// const imagePopupTemplate = document.querySelector(
+//   ".template-image-popup"
+// ).content;
+// const imagePopupElem = imagePopupTemplate
+//   .querySelector(".image-popup")
+//   .cloneNode(true);
+
+const imagePopupElem = document.querySelector(".image-popup");
+
+function openImagePopup(evt) {
+  const closePopupElem = imagePopupElem.querySelector(
+    ".image-popup__close-btn"
+  );
+  const imageElem = imagePopupElem.querySelector(".image-popup__image");
+  const descrElem = imagePopupElem.querySelector(".image-popup__descr");
+
+  imageElem.src = evt.target.src;
+  imageElem.alt = evt.target.alt;
+  descrElem.textContent =
+    evt.target.nextElementSibling.nextElementSibling.firstElementChild.textContent;
+
+  imagePopupElem.classList.add("image-popup_is_opening");
+
+  document.addEventListener("animationstart", function (e) {
+    if (e.animationName === "fade-in") {
+      e.target.classList.add("image-popup_is_closing");
+    }
+  });
+
+  closePopupElem.addEventListener("click", closeImagePopup);
+}
+
+function closeImagePopup() {
+  document.addEventListener("animationend", function (e) {
+    if (e.animationName === "fade-out") {
+      e.target.classList.remove("image-popup_is_closing");
+    }
+  });
+
+  imagePopupElem.classList.add("image-popup_is_closing");
+  imagePopupElem.classList.remove("image-popup_is_opening");
+}
+/* -------------------------- */

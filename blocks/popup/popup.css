@@ -8,4 +8,14 @@
   display: none;
   justify-content: center;
   align-items: center;
+  animation: fadeIn 0.5s;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
