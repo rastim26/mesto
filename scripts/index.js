@@ -174,11 +174,11 @@ function openImagePopup(evt) {
   descrElem.textContent =
     evt.target.nextElementSibling.nextElementSibling.firstElementChild.textContent;
 
-  imagePopupElem.classList.add("image-popup_is_opening");
+  imagePopupElem.classList.add("image-popup_action_opening");
 
   document.addEventListener("animationstart", function (e) {
     if (e.animationName === "fade-in") {
-      e.target.classList.add("image-popup_is_closing");
+      e.target.classList.add("image-popup_action_closing");
     }
   });
 
@@ -188,11 +188,11 @@ function openImagePopup(evt) {
 function closeImagePopup() {
   document.addEventListener("animationend", function (e) {
     if (e.animationName === "fade-out") {
-      e.target.classList.remove("image-popup_is_closing");
+      e.target.classList.remove("image-popup_action_closing");
     }
   });
 
-  imagePopupElem.classList.add("image-popup_is_closing");
-  imagePopupElem.classList.remove("image-popup_is_opening");
+  imagePopupElem.classList.add("image-popup_action_closing");
+  imagePopupElem.classList.remove("image-popup_action_opening");
 }
 /* -------------------------- */

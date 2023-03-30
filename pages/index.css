@@ -37,3 +37,5 @@
 @import url(../blocks/image-popup/__descr/image-popup__descr.css);
 @import url(../blocks/image-popup/__close-btn/image-popup__close-btn.css);
 @import url(../blocks/image-popup/__close-icon/image-popup__close-icon.css);
+@import url(../blocks/image-popup/_action/image-popup_action_opening.css);
+@import url(../blocks/image-popup/_action/image-popup_action_closing.css);

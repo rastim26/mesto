@@ -11,16 +11,6 @@
   flex-direction: column;
 }
 
-.image-popup_is_opening {
-  display: flex;
-  animation: fadeIn 0.5s;
-}
-
-.image-popup_is_closing {
-  display: flex;
-  animation: fade-out 0.5s;
-}
-
 @keyframes fadeIn {
   from {
     opacity: 0;

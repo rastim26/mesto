@@ -1,0 +1,4 @@
+.image-popup_action_closing {
+  display: flex;
+  animation: fade-out 0.5s;
+}
