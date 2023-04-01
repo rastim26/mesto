@@ -29,33 +29,33 @@ const pageElement = document.querySelector(".page");
 
 const profileTitleElem = document.querySelector(".profile__title");
 const profileSubtitleElem = document.querySelector(".profile__subtitle");
-
 const editButtonElem = document.querySelector(".profile__edit-button");
 const addButtonElem = document.querySelector(".profile__add-button");
 
-const popupTemplate = document.querySelector(".template-popup").content;
-
 /* ----------------- Change profile --------------- */
 
-const editPopupElement = popupTemplate.querySelector(".popup").cloneNode(true);
-const titleEditPopupElem = editPopupElement.querySelector(".popup__title");
+const editPopupElement = document.querySelector(".edit-popup");
+const titleEditPopupElem = editPopupElement.querySelector(".edit-popup__title");
 const nameInputEditPopupElem = editPopupElement.querySelector("#name");
 const jobInputEditPopupElem = editPopupElement.querySelector("#job");
-const buttonEditPopupElem = editPopupElement.querySelector(".popup__button");
-const closeButtonEditPopupElem =
-  editPopupElement.querySelector(".popup__close-btn");
+const buttonEditPopupElem = editPopupElement.querySelector(
+  ".edit-popup__button"
+);
+const closeButtonEditPopupElem = editPopupElement.querySelector(
+  ".edit-popup__close-btn"
+);
 
 function openEditPopup() {
   titleEditPopupElem.textContent = "Редактировать профиль";
   buttonEditPopupElem.value = "сохранить";
   nameInputEditPopupElem.value = profileTitleElem.textContent;
   jobInputEditPopupElem.value = profileSubtitleElem.textContent;
-  pageElement.append(editPopupElement);
+  editPopupElement.classList.add("edit-popup_action_opening");
 }
 
-function closeEditPopup(evt) {
-  const currentPopupElement = evt.target.closest(".popup");
-  currentPopupElement.remove();
+function closeEditPopup() {
+  editPopupElement.classList.add("edit-popup_action_closing");
+  editPopupElement.classList.remove("edit-popup_action_opening");
 }
 
 function handleEditFormSubmit(evt) {
@@ -69,30 +69,36 @@ editButtonElem.addEventListener("click", openEditPopup);
 closeButtonEditPopupElem.addEventListener("click", closeEditPopup);
 buttonEditPopupElem.addEventListener("click", handleEditFormSubmit);
 
+document.addEventListener("animationstart", function (e) {
+  if (e.animationName === "fade-in") {
+    e.target.classList.add("edit-popup_action_closing");
+  }
+});
+document.addEventListener("animationend", function (e) {
+  if (e.animationName === "fade-out") {
+    e.target.classList.remove("edit-popup_action_closing");
+  }
+});
+
 /* -------------- Окно добавления ------------ */
 
-const addPopupElement = popupTemplate.querySelector(".popup").cloneNode(true);
-const titleAddPopupElem = addPopupElement.querySelector(".popup__title");
+const addPopupElement = document.querySelector(".add-popup");
 const nameInputAddPopupElem = addPopupElement.querySelector("#name");
 const jobInputAddPopupElem = addPopupElement.querySelector("#job");
-const buttonAddPopupElem = addPopupElement.querySelector(".popup__button");
-const closeButtonAddPopupElem =
-  addPopupElement.querySelector(".popup__close-btn");
+const buttonAddPopupElem = addPopupElement.querySelector(".add-popup__button");
+const closeButtonAddPopupElem = addPopupElement.querySelector(
+  ".add-popup__close-btn"
+);
 
 function openAddPopup() {
-  titleAddPopupElem.textContent = "Новое место";
-  buttonAddPopupElem.value = "создать";
-  nameInputAddPopupElem.placeholder = "Название";
-  jobInputAddPopupElem.placeholder = "Ссылка на картинку";
-  pageElement.append(addPopupElement);
+  addPopupElement.classList.add("add-popup_action_opening");
 }
 
 function closeAddPopup(evt) {
-  const currentPopupElement = evt.target.closest(".popup");
-
   nameInputAddPopupElem.value = "";
   jobInputAddPopupElem.value = "";
-  currentPopupElement.remove();
+  addPopupElement.classList.add("add-popup_action_closing");
+  addPopupElement.classList.remove("add-popup_action_opening");
 }
 
 function handleAddFormSubmit(evt) {
@@ -116,6 +122,17 @@ function handleAddFormSubmit(evt) {
 
   closeAddPopup(evt);
 }
+
+document.addEventListener("animationstart", function (e) {
+  if (e.animationName === "fade-in") {
+    e.target.classList.add("add-popup_action_closing");
+  }
+});
+document.addEventListener("animationend", function (e) {
+  if (e.animationName === "fade-out") {
+    e.target.classList.remove("add-popup_action_closing");
+  }
+});
 
 addButtonElem.addEventListener("click", openAddPopup);
 closeButtonAddPopupElem.addEventListener("click", closeAddPopup);
@@ -153,19 +170,10 @@ function deleteCard(evt) {
   evt.target.closest(".cards__card").remove();
 }
 
-// const imagePopupTemplate = document.querySelector(
-//   ".template-image-popup"
-// ).content;
-// const imagePopupElem = imagePopupTemplate
-//   .querySelector(".image-popup")
-//   .cloneNode(true);
-
 const imagePopupElem = document.querySelector(".image-popup");
+const closePopupElem = imagePopupElem.querySelector(".image-popup__close-btn");
 
 function openImagePopup(evt) {
-  const closePopupElem = imagePopupElem.querySelector(
-    ".image-popup__close-btn"
-  );
   const imageElem = imagePopupElem.querySelector(".image-popup__image");
   const descrElem = imagePopupElem.querySelector(".image-popup__descr");
 
@@ -175,24 +183,21 @@ function openImagePopup(evt) {
     evt.target.nextElementSibling.nextElementSibling.firstElementChild.textContent;
 
   imagePopupElem.classList.add("image-popup_action_opening");
-
-  document.addEventListener("animationstart", function (e) {
-    if (e.animationName === "fade-in") {
-      e.target.classList.add("image-popup_action_closing");
-    }
-  });
-
-  closePopupElem.addEventListener("click", closeImagePopup);
 }
 
 function closeImagePopup() {
-  document.addEventListener("animationend", function (e) {
-    if (e.animationName === "fade-out") {
-      e.target.classList.remove("image-popup_action_closing");
-    }
-  });
-
   imagePopupElem.classList.add("image-popup_action_closing");
   imagePopupElem.classList.remove("image-popup_action_opening");
 }
-/* -------------------------- */
+
+closePopupElem.addEventListener("click", closeImagePopup);
+document.addEventListener("animationstart", function (e) {
+  if (e.animationName === "fade-in") {
+    e.target.classList.add("image-popup_action_closing");
+  }
+});
+document.addEventListener("animationend", function (e) {
+  if (e.animationName === "fade-out") {
+    e.target.classList.remove("image-popup_action_closing");
+  }
+});
