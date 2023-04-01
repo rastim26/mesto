@@ -83,8 +83,8 @@ document.addEventListener("animationend", function (e) {
 /* -------------- Окно добавления ------------ */
 
 const addPopupElement = document.querySelector(".add-popup");
-const nameInputAddPopupElem = addPopupElement.querySelector("#name");
-const jobInputAddPopupElem = addPopupElement.querySelector("#job");
+const nameInputAddPopupElem = addPopupElement.querySelector("#image-name");
+const jobInputAddPopupElem = addPopupElement.querySelector("#url");
 const buttonAddPopupElem = addPopupElement.querySelector(".add-popup__button");
 const closeButtonAddPopupElem = addPopupElement.querySelector(
   ".add-popup__close-btn"
