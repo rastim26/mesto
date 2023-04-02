@@ -1,4 +1,4 @@
-.edit-popup__close-btn {
+.popup__close {
   position: absolute;
   top: -40px;
   right: -40px;
@@ -9,16 +9,16 @@
   height: 32px;
   cursor: pointer;
 }
-.edit-popup__close-btn:hover {
+.popup__close:hover {
   opacity: 0.6;
 }
 @media (max-width: 540px) {
-  .edit-popup__close-btn {
+  .popup__close {
     right: 0;
   }
 }
 @media (max-width: 450px) {
-  .edit-popup__close-btn {
+  .popup__close {
     width: 22px;
     height: 22px;
   }

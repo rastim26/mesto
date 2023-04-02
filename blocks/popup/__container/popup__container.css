@@ -1,4 +1,4 @@
-.edit-popup__container {
+.popup__container {
   width: 430px;
   background-color: #fff;
   border-radius: 10px;
@@ -7,7 +7,7 @@
   position: relative;
 }
 @media (max-width: 450px) {
-  .edit-popup__container {
+  .popup__container {
     width: 282px;
     padding: 25px 22px;
   }
