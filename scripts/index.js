@@ -36,16 +36,13 @@ const editPopupElement = document.querySelector(".edit-popup");
 const nameInputEditPopupElem = editPopupElement.querySelector("#name");
 const jobInputEditPopupElem = editPopupElement.querySelector("#job");
 const formEditPopupElem = editPopupElement.querySelector(".edit-popup__form");
-const closeEditPopupElem = editPopupElement.querySelector(".popup__close");
 
 const addPopupElement = document.querySelector(".add-popup");
 const nameInputAddPopupElem = addPopupElement.querySelector("#image-name");
 const urlInputAddPopupElem = addPopupElement.querySelector("#url");
 const formAddPopupElem = addPopupElement.querySelector(".add-popup__form");
-const closeAddPopupElem = addPopupElement.querySelector(".popup__close");
 
 const imagePopupElem = document.querySelector(".image-popup");
-const closeImagePopupElem = imagePopupElem.querySelector(".popup__close");
 const imageElem = imagePopupElem.querySelector(".image-popup__image");
 const descrElem = imagePopupElem.querySelector(".image-popup__descr");
 
