@@ -9,11 +9,3 @@
     position: relative;
   }
 }
-
-/* ---- ----------*/
-
-.profile__control {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
