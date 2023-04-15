@@ -1,11 +1,17 @@
 .profile__user {
   display: flex;
+  /* display: grid;
+  grid-template-columns: 130px 1fr 42px; */
+
   align-items: center;
 }
 @media (max-width: 450px) {
   .profile__user {
     flex-direction: column;
     align-items: center;
+    /* grid-template-columns: 1fr; */
+    /* justify-items: center; */
+
     position: relative;
   }
 }

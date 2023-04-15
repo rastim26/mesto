@@ -122,9 +122,9 @@ popupList.forEach((popupItem) => {
   popupItem.addEventListener("click", closePopupByOverlay);
 });
 
-function closeEscPopup(evt) {
+const closeEscPopup = (evt) => {
   if (evt.key === "Escape") {
     const popupItem = document.querySelector(".popup_open");
     closePopup(popupItem);
   }
-}
+};
