@@ -1,11 +1,12 @@
 .popup__error {
+  height: 26px;
   font-family: "Inter";
   font-style: normal;
   font-weight: 400;
   font-size: 12px;
-  line-height: 1.25;
+  line-height: 1;
   color: #ff0000;
   display: block;
   visibility: hidden;
-  margin-bottom: 11px;
+  /* margin-bottom: 11px; */
 }
