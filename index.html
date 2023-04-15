@@ -77,9 +77,28 @@
     <section class="popup edit-popup">
       <div class="popup__container">
         <h2 class="popup__title">Редактировать профиль</h2>
-        <form name="form" class="popup__form edit-popup__form">
-          <input id="name" name="name" type="text" class="popup__input" />
-          <input id="job" name="job" type="text" class="popup__input" />
+        <form name="form" class="popup__form edit-popup__form" novalidate>
+          <input
+            id="name"
+            name="name"
+            type="text"
+            class="popup__input"
+            required
+            minlength="2"
+            maxlength="40"
+          />
+          <span class="popup__error name-error">Вы пропустили это поле.</span>
+
+          <input
+            id="job"
+            name="job"
+            type="text"
+            class="popup__input"
+            required
+            minlength="2"
+            maxlength="200"
+          />
+          <span class="popup__error job-error">Вы пропустили это поле.</span>
           <input
             type="submit"
             aria-label="Save"
@@ -101,21 +120,27 @@
     <section class="popup add-popup">
       <div class="popup__container">
         <h2 class="popup__title">Новое место</h2>
-        <form name="form" class="popup__form add-popup__form">
+        <form name="form" class="popup__form add-popup__form" novalidate>
           <input
             id="image-name"
             name="name"
             type="text"
             class="popup__input"
             placeholder="Название"
+            required
+            minlength="2"
+            maxlength="20"
           />
+          <span class="popup__error image-name-error"></span>
           <input
             id="url"
             name="job"
-            type="text"
+            type="url"
             class="popup__input"
             placeholder="Ссылка на картинку"
+            required
           />
+          <span class="popup__error url-error"></span>
           <input
             type="submit"
             aria-label="Create"
@@ -154,5 +179,6 @@
     <!-- /.image-popup -->
 
     <script src="./scripts/index.js"></script>
+    <script src="./scripts/validate.js"></script>
   </body>
 </html>

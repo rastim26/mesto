@@ -127,7 +127,27 @@ editButtonElem.addEventListener("click", () => {
 addButtonElem.addEventListener("click", () => openPopup(addPopupElement));
 formEditPopupElem.addEventListener("submit", handleEditFormSubmit);
 formAddPopupElem.addEventListener("submit", handleAddFormSubmit);
+
 closeButtons.forEach((buttonItem) => {
   const popup = buttonItem.closest(".popup");
   buttonItem.addEventListener("click", () => closePopup(popup));
+});
+
+// -------------------------------------------
+
+const closePopupByOverlay = (evt) => {
+  if (evt.target === evt.currentTarget) {
+    closePopup(evt.currentTarget);
+  }
+};
+
+const popupList = Array.from(document.querySelectorAll(".popup"));
+
+popupList.forEach((popupItem) => {
+  popupItem.addEventListener("click", closePopupByOverlay);
+  document.addEventListener("keydown", (evt) => {
+    if (evt.key === "Escape") {
+      closePopup(popupItem);
+    }
+  });
 });
