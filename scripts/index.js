@@ -26,6 +26,9 @@ const cardsElem = document.querySelector(".cards");
 function openPopup(popupItem) {
   popupItem.classList.add("popup_open");
   document.addEventListener("keydown", closeEscPopup);
+
+  enableValidation(validationConfig);
+  // toggleButtonState(inputList, buttonElement, { inactiveButtonClass });
 }
 
 function closePopup(popupItem) {
