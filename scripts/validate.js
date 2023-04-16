@@ -27,7 +27,6 @@ const setEventListeners = (
   inputList.forEach((inputElement) => {
     inputElement.addEventListener("input", () => {
       isValid(formElement, inputElement, rest);
-
       toggleButtonState(inputList, buttonElement, rest);
     });
   });
@@ -92,5 +91,3 @@ const toggleButtonState = (
     buttonElement.removeAttribute("disabled");
   }
 };
-
-enableValidation(validationConfig);

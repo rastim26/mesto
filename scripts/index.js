@@ -19,16 +19,28 @@ const pictureDescriptionElem = imagePopupElem.querySelector(
   ".image-popup__descr"
 );
 
+const popupList = Array.from(document.querySelectorAll(".popup"));
 const closeButtons = document.querySelectorAll(".popup__close");
 const cardTemplate = document.querySelector(".template-card").content;
 const cardsElem = document.querySelector(".cards");
 
+const closePopupByOverlay = (evt) => {
+  if (evt.target === evt.currentTarget) {
+    closePopup(evt.currentTarget);
+  }
+};
+
+const closeEscPopup = (evt) => {
+  if (evt.key === "Escape") {
+    const popupItem = document.querySelector(".popup_open");
+    closePopup(popupItem);
+  }
+};
+
 function openPopup(popupItem) {
+  enableValidation(validationConfig);
   popupItem.classList.add("popup_open");
   document.addEventListener("keydown", closeEscPopup);
-
-  enableValidation(validationConfig);
-  // toggleButtonState(inputList, buttonElement, { inactiveButtonClass });
 }
 
 function closePopup(popupItem) {
@@ -111,23 +123,6 @@ closeButtons.forEach((buttonItem) => {
   buttonItem.addEventListener("click", () => closePopup(popup));
 });
 
-// -------------------------------------------
-
-const closePopupByOverlay = (evt) => {
-  if (evt.target === evt.currentTarget) {
-    closePopup(evt.currentTarget);
-  }
-};
-
-const popupList = Array.from(document.querySelectorAll(".popup"));
-
 popupList.forEach((popupItem) => {
   popupItem.addEventListener("click", closePopupByOverlay);
 });
-
-const closeEscPopup = (evt) => {
-  if (evt.key === "Escape") {
-    const popupItem = document.querySelector(".popup_open");
-    closePopup(popupItem);
-  }
-};
