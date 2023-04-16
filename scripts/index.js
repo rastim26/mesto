@@ -38,12 +38,6 @@ const closeEscPopup = (evt) => {
 };
 
 function openPopup(popupItem) {
-  enableValidation(validationConfig);
-
-  // const buttonElement = popupItem.querySelector(".popup__button");
-  // buttonElement.classList.add("popup__button_disabled");
-  // buttonElement.setAttribute("disabled", true);
-
   popupItem.classList.add("popup_open");
   document.addEventListener("keydown", closeEscPopup);
 }
@@ -77,9 +71,10 @@ function handleAddFormSubmit(evt) {
     link: urlInputAddPopupElem.value,
   };
   const newCardElem = createCard(cardItem);
+  const buttonElement = evt.target.querySelector(".popup__button");
 
   formAddPopupElem.reset();
-
+  disableButton(buttonElement, validationConfig);
   closePopup(addPopupElement);
   cardsElem.prepend(newCardElem);
 }
@@ -117,8 +112,13 @@ function handleCardClick(imgCardElem) {
 editButtonElem.addEventListener("click", () => {
   nameInputEditPopupElem.value = profileTitleElem.textContent;
   jobInputEditPopupElem.value = profileSubtitleElem.textContent;
+
+  hideInputError(editPopupElement, nameInputEditPopupElem, validationConfig);
+  hideInputError(editPopupElement, jobInputEditPopupElem, validationConfig);
+
   return openPopup(editPopupElement);
 });
+
 addButtonElem.addEventListener("click", () => openPopup(addPopupElement));
 formEditPopupElem.addEventListener("submit", handleEditFormSubmit);
 formAddPopupElem.addEventListener("submit", handleAddFormSubmit);
