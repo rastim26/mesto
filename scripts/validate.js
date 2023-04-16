@@ -91,3 +91,5 @@ const toggleButtonState = (
     buttonElement.removeAttribute("disabled");
   }
 };
+
+enableValidation(validationConfig);

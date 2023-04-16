@@ -39,6 +39,11 @@ const closeEscPopup = (evt) => {
 
 function openPopup(popupItem) {
   enableValidation(validationConfig);
+
+  // const buttonElement = popupItem.querySelector(".popup__button");
+  // buttonElement.classList.add("popup__button_disabled");
+  // buttonElement.setAttribute("disabled", true);
+
   popupItem.classList.add("popup_open");
   document.addEventListener("keydown", closeEscPopup);
 }
