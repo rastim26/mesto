@@ -79,11 +79,6 @@ function handleAddFormSubmit(evt) {
   cardsElem.prepend(newCardElem);
 }
 
-initialCards.forEach((cardItem) => {
-  const cardElem = createCard(cardItem);
-  cardsElem.append(cardElem);
-});
-
 function createCard(cardItem) {
   const cardElem = cardTemplate.querySelector(".cards__card").cloneNode(true);
   const imgCardElem = cardElem.querySelector(".cards__thumbnail");
@@ -108,6 +103,13 @@ function handleCardClick(imgCardElem) {
   pictureDescriptionElem.textContent = imgCardElem.alt;
   return openPopup(imagePopupElem);
 }
+
+initialCards.forEach((cardItem) => {
+  const cardElem = createCard(cardItem);
+  cardsElem.append(cardElem);
+});
+
+enableValidation(validationConfig);
 
 editButtonElem.addEventListener("click", () => {
   nameInputEditPopupElem.value = profileTitleElem.textContent;

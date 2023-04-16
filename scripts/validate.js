@@ -95,5 +95,3 @@ const enableButton = (buttonElement, { inactiveButtonClass }) => {
   buttonElement.classList.remove(inactiveButtonClass);
   buttonElement.removeAttribute("disabled");
 };
-
-enableValidation(validationConfig);
