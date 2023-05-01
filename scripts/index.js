@@ -26,7 +26,6 @@ const formAddPopupElem = addPopupElement.querySelector(".add-popup__form");
 
 const popupList = Array.from(document.querySelectorAll(".popup"));
 const closeButtons = document.querySelectorAll(".popup__close");
-const cardTemplate = document.querySelector(".template-card").content;
 const cardsElem = document.querySelector(".cards");
 
 const closePopupByOverlay = (evt) => {
@@ -60,8 +59,6 @@ function handleEditFormSubmit(evt) {
 }
 
 /* -------------- Окно добавления ------------ */
-
-/* -------------- Создание карточек  ------------ */
 
 // function toggleLike(evt) {
 //   evt.target.classList.toggle("cards__button_active");
@@ -101,63 +98,54 @@ function handleEditFormSubmit(evt) {
 //   cardsElem.append(cardElem);
 // });
 
+const createCard = (cardItem) => {
+  const card = new Card(cardItem, ".template-card");
+  const cardElem = card.getCard();
+  return cardElem;
+};
+
+const addFormValidator = new FormValidator(validationConfig, formAddPopupElem);
+const editFormValidator = new FormValidator(
+  validationConfig,
+  formEditPopupElem
+);
+
 function handleAddFormSubmit(evt) {
   evt.preventDefault();
   const cardItem = {
     name: nameInputAddPopupElem.value,
     link: urlInputAddPopupElem.value,
   };
-  const card = new Card(cardItem, ".template-card");
-  const newCardElem = card.getCard();
-
-  const buttonElement = evt.target.querySelector(".popup__button");
+  const cardElem = createCard(cardItem);
 
   formAddPopupElem.reset();
-  disableButton(buttonElement, validationConfig);
+  addFormValidator.disableButton();
   closePopup(addPopupElement);
-  cardsElem.prepend(newCardElem);
+  cardsElem.prepend(cardElem);
 }
 
-const disableButton = (buttonElement, validationConfig) => {
-  buttonElement.classList.add(validationConfig.inactiveButtonClass);
-  buttonElement.setAttribute("disabled", true);
-};
-
 initialCards.forEach((cardItem) => {
-  const card = new Card(cardItem, ".template-card");
-  const cardElem = card.getCard();
+  const cardElem = createCard(cardItem);
   cardsElem.append(cardElem);
 });
+addFormValidator.enableValidation();
+editFormValidator.enableValidation();
 
-const formList = Array.from(
-  document.querySelectorAll(validationConfig.formSelector)
-);
-
-formList.forEach((formElement) => {
-  const formValidator = new FormValidator(validationConfig, formElement);
-
-  formValidator.enableValidation();
-});
+// const formList = Array.from(
+//   document.querySelectorAll(validationConfig.formSelector)
+// );
+// formList.forEach((formElement) => {
+//   const formValidator = new FormValidator(validationConfig, formElement);
+//   formValidator.enableValidation();
+// });
 
 editButtonElem.addEventListener("click", () => {
   nameInputEditPopupElem.value = profileTitleElem.textContent;
   jobInputEditPopupElem.value = profileSubtitleElem.textContent;
-  hideInputError(editPopupElement, nameInputEditPopupElem, validationConfig);
-  hideInputError(editPopupElement, jobInputEditPopupElem, validationConfig);
+  editFormValidator.hideInputError(nameInputEditPopupElem);
+  editFormValidator.hideInputError(jobInputEditPopupElem);
   return openPopup(editPopupElement);
 });
-
-const hideInputError = (
-  formElement,
-  inputElement,
-  { inputErrorClass, errorClass }
-) => {
-  const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
-
-  inputElement.classList.remove(inputErrorClass);
-  errorElement.classList.remove(errorClass);
-  errorElement.textContent = "";
-};
 
 addButtonElem.addEventListener("click", () => openPopup(addPopupElement));
 formEditPopupElem.addEventListener("submit", handleEditFormSubmit);
