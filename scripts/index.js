@@ -24,32 +24,32 @@ const pictureDescriptionElem = imagePopupElem.querySelector(
   ".image-popup__descr"
 );
 
-const popupList = Array.from(document.querySelectorAll(".popup"));
-const closeButtons = document.querySelectorAll(".popup__close");
+// const popupList = Array.from(document.querySelectorAll(".popup"));
+// const closeButtons = document.querySelectorAll(".popup__close");
 const cardsElem = document.querySelector(".cards");
 
-const closePopupByOverlay = (evt) => {
-  if (evt.target === evt.currentTarget) {
-    closePopup(evt.currentTarget);
-  }
-};
+// const closePopupByOverlay = (evt) => {
+//   if (evt.target === evt.currentTarget) {
+//     closePopup(evt.currentTarget);
+//   }
+// };
 
-const closeEscPopup = (evt) => {
-  if (evt.key === "Escape") {
-    const popupItem = document.querySelector(".popup_open");
-    closePopup(popupItem);
-  }
-};
+// const closeEscPopup = (evt) => {
+//   if (evt.key === "Escape") {
+//     const popupItem = document.querySelector(".popup_open");
+//     closePopup(popupItem);
+//   }
+// };
 
-function openPopup(popupItem) {
-  popupItem.classList.add("popup_open");
-  document.addEventListener("keydown", closeEscPopup);
-}
+// function openPopup(popupItem) {
+//   popupItem.classList.add("popup_open");
+//   document.addEventListener("keydown", closeEscPopup);
+// }
 
-function closePopup(popupItem) {
-  popupItem.classList.remove("popup_open");
-  document.removeEventListener("keydown", closeEscPopup);
-}
+// function closePopup(popupItem) {
+//   popupItem.classList.remove("popup_open");
+//   document.removeEventListener("keydown", closeEscPopup);
+// }
 
 function handleEditFormSubmit(evt) {
   evt.preventDefault();
@@ -59,35 +59,6 @@ function handleEditFormSubmit(evt) {
 }
 
 /* -------------- Окно добавления ------------ */
-
-// function toggleLike(evt) {
-//   evt.target.classList.toggle("cards__button_active");
-// }
-
-// function deleteCard(evt) {
-//   evt.target.closest(".cards__card").remove();
-// }
-
-// function createCard(cardItem) {
-// const cardElem = cardTemplate.querySelector(".cards__card").cloneNode(true);
-// const imgCardElem = cardElem.querySelector(".cards__thumbnail");
-//   const titleCardElem = cardElem.querySelector(".cards__title");
-//   const likeCardElem = cardElem.querySelector(".cards__button");
-//   const delCardElem = cardElem.querySelector(".cards__button-del");
-
-//   imgCardElem.src = cardItem["link"];
-//   imgCardElem.alt = cardItem["name"];
-//   titleCardElem.textContent = cardItem["name"];
-
-//   likeCardElem.addEventListener("click", toggleLike);
-//   delCardElem.addEventListener("click", deleteCard);
-//   imgCardElem.addEventListener("click", () => handleCardClick(imgCardElem));
-
-//   return cardElem;
-// }
-// const cardTemplate = document.querySelector(".template-card").content;
-// const cardElem = cardTemplate.querySelector(".cards__card").cloneNode(true);
-// const imgCardElem = cardElem.querySelector(".cards__thumbnail");
 
 function handleCardClick(name, link) {
   pictureElem.src = link;
@@ -128,14 +99,6 @@ initialCards.forEach((cardItem) => {
 });
 addFormValidator.enableValidation();
 editFormValidator.enableValidation();
-
-// const formList = Array.from(
-//   document.querySelectorAll(validationConfig.formSelector)
-// );
-// formList.forEach((formElement) => {
-//   const formValidator = new FormValidator(validationConfig, formElement);
-//   formValidator.enableValidation();
-// });
 
 editButtonElem.addEventListener("click", () => {
   nameInputEditPopupElem.value = profileTitleElem.textContent;
