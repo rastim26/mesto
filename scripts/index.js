@@ -1,7 +1,11 @@
 import { validationConfig } from "./validationConfig.js";
 import { initialCards } from "./cards.js";
-import Card from "./Card.js";
-import FormValidator from "./FormValidator.js";
+import Card from "./components/Card.js";
+import FormValidator from "./components/FormValidator.js";
+
+import Popup from "./components/Popup.js";
+// import Popup from "./components/PopupWithForm.js";
+// import Popup from "./components/PopupWithImage.js";
 
 const profileTitleElem = document.querySelector(".profile__title");
 const profileSubtitleElem = document.querySelector(".profile__subtitle");
@@ -107,16 +111,22 @@ editButtonElem.addEventListener("click", () => {
   return openPopup(editPopupElement);
 });
 
-addButtonElem.addEventListener("click", () => openPopup(addPopupElement));
+const addPopupNew = new Popup('.add-popup'); //+
+
+addButtonElem.addEventListener("click", () => {
+  addPopupNew.open();
+}); //+
+
+
 formEditPopupElem.addEventListener("submit", handleEditFormSubmit);
 
 formAddPopupElem.addEventListener("submit", handleAddFormSubmit);
 
-closeButtons.forEach((buttonItem) => {
-  const popup = buttonItem.closest(".popup");
-  buttonItem.addEventListener("click", () => closePopup(popup));
-});
+// closeButtons.forEach((buttonItem) => {
+//   const popup = buttonItem.closest(".popup");
+//   buttonItem.addEventListener("click", () => closePopup(popup));
+// });
 
-popupList.forEach((popupItem) => {
-  popupItem.addEventListener("click", closePopupByOverlay, openPopup);
-});
+// popupList.forEach((popupItem) => {
+//   popupItem.addEventListener("click", closePopupByOverlay, openPopup);
+// });

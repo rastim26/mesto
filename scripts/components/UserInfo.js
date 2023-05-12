@@ -1,13 +1,16 @@
+// отвечает за управление отображением информации о пользователе  на странице.
+
 export default class UserInfo {
-    constructor ({userNameElemSelector, aboutElemSelector}) {
+    constructor ({userNameElemSelector, userAboutElemSelector}) {
 
     }
 
     getUserInfo () {
+        //возвращает объект с данными пользователя. Этот метод пригодится когда данные пользователя нужно будет подставить в форму при открытии.
 
     }
 
     setUserInfo () {
-        
+        //принимает новые данные пользователя и добавляет их на страницу
     }
 }
