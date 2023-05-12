@@ -4,6 +4,7 @@ import Card from "./components/Card.js";
 import FormValidator from "./components/FormValidator.js";
 
 import Popup from "./components/Popup.js";
+import PopupWithForm from "./components/PopupWithForm.js";
 // import Popup from "./components/PopupWithForm.js";
 // import Popup from "./components/PopupWithImage.js";
 
@@ -13,8 +14,8 @@ const editButtonElem = document.querySelector(".profile__edit-button");
 const addButtonElem = document.querySelector(".profile__add-button");
 
 const editPopupElement = document.querySelector(".edit-popup");
-const nameInputEditPopupElem = editPopupElement.querySelector("#name");
-const jobInputEditPopupElem = editPopupElement.querySelector("#job");
+// const nameInputEditPopupElem = editPopupElement.querySelector("#name");
+// const jobInputEditPopupElem = editPopupElement.querySelector("#job");
 const formEditPopupElem = editPopupElement.querySelector(".edit-popup__form");
 
 const addPopupElement = document.querySelector(".add-popup");
@@ -55,11 +56,11 @@ const cardsElem = document.querySelector(".cards");
 //   document.removeEventListener("keydown", closeEscPopup);
 // }
 
-function handleEditFormSubmit(evt) {
+function handleEditFormSubmit(evt, name, job) {
   evt.preventDefault();
-  profileTitleElem.textContent = nameInputEditPopupElem.value;
-  profileSubtitleElem.textContent = jobInputEditPopupElem.value;
-  closePopup(editPopupElement);
+  profileTitleElem.textContent = name;
+  profileSubtitleElem.textContent = job;
+  // closePopup(editPopupElement);
 }
 
 /* -------------- Окно добавления ------------ */
@@ -104,19 +105,23 @@ initialCards.forEach((cardItem) => {
 addFormValidator.enableValidation();
 editFormValidator.enableValidation();
 
-editButtonElem.addEventListener("click", () => {
-  nameInputEditPopupElem.value = profileTitleElem.textContent;
-  jobInputEditPopupElem.value = profileSubtitleElem.textContent;
-  editFormValidator.resetValidation();
-  return openPopup(editPopupElement);
-});
+// editButtonElem.addEventListener("click", () => {
+//   nameInputEditPopupElem.value = profileTitleElem.textContent;
+//   jobInputEditPopupElem.value = profileSubtitleElem.textContent;
+//   editFormValidator.resetValidation();
+//   return openPopup(editPopupElement);
+// });
 
 const addPopupNew = new Popup('.add-popup'); //+
-
 addButtonElem.addEventListener("click", () => {
   addPopupNew.open();
 }); //+
 
+const editPopupNew = new PopupWithForm('.edit-popup'); //+
+editButtonElem.addEventListener("click", () => {
+  editPopupNew.open();
+  // console.log('test');
+}); //+
 
 formEditPopupElem.addEventListener("submit", handleEditFormSubmit);
 
