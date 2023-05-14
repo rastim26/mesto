@@ -56,8 +56,7 @@ const cardsElem = document.querySelector(".cards");
 //   document.removeEventListener("keydown", closeEscPopup);
 // }
 
-function handleEditFormSubmit(evt, name, job) {
-  evt.preventDefault();
+function handleEditFormSubmit(name, job) {
   profileTitleElem.textContent = name;
   profileSubtitleElem.textContent = job;
   // closePopup(editPopupElement);
@@ -117,11 +116,12 @@ addButtonElem.addEventListener("click", () => {
   addPopupNew.open();
 }); //+
 
-const editPopupNew = new PopupWithForm('.edit-popup'); //+
+const editPopupNew = new PopupWithForm('.edit-popup', handleEditFormSubmit); //+
 editButtonElem.addEventListener("click", () => {
   editPopupNew.open();
-  // console.log('test');
+  editPopupNew.setEventListeners();
 }); //+
+
 
 formEditPopupElem.addEventListener("submit", handleEditFormSubmit);
 
