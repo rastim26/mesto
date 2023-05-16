@@ -72,7 +72,7 @@ function handleEditFormSubmit(name, job) {
 // }
 const imagePopupElem = new PopupWithImage('.image-popup');
 
-// imagePopupElem.open('qwer', 'qwerrrr')
+imagePopupElem.setEventListeners();
 
 const createCard = (cardItem) => {
   const card = new Card(cardItem, ".template-card", imagePopupElem.open);
