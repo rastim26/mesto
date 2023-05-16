@@ -1,16 +1,20 @@
 // отвечает за управление отображением информации о пользователе  на странице.
 
 export default class UserInfo {
-    constructor ({userNameElemSelector, userAboutElemSelector}) {
-
+    constructor (userData) {
+        this._profileTitleElem = document.querySelector(userData.name);
+        this._profileSubtitleElem = document.querySelector(userData.job);
     }
 
     getUserInfo () {
-        //возвращает объект с данными пользователя. Этот метод пригодится когда данные пользователя нужно будет подставить в форму при открытии.
-
+        //v возвращает объект с данными пользователя. Этот метод пригодится когда данные пользователя нужно будет подставить в форму при открытии.
+        return this._object;
     }
 
-    setUserInfo () {
-        //принимает новые данные пользователя и добавляет их на страницу
+    setUserInfo = (name, job) => {
+        this._profileTitleElem.textContent = name;
+        this._profileSubtitleElem.textContent = job;
+        this._object = {name, job};
+        //v принимает новые данные пользователя и добавляет их на страницу
     }
 }

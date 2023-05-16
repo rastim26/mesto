@@ -3,14 +3,15 @@ import { initialCards } from "./cards.js";
 import Card from "./components/Card.js";
 import FormValidator from "./components/FormValidator.js";
 
-import Popup from "./components/Popup.js";
+// import Popup from "./components/Popup.js";
 import PopupWithForm from "./components/PopupWithForm.js";
 import PopupWithImage from "./components/PopupWithImage.js";
+import UserInfo from "./components/UserInfo.js";
 // import Popup from "./components/PopupWithForm.js";
 // import Popup from "./components/PopupWithImage.js";
 
-const profileTitleElem = document.querySelector(".profile__title");
-const profileSubtitleElem = document.querySelector(".profile__subtitle");
+// const profileTitleElem = document.querySelector(".profile__title");
+// const profileSubtitleElem = document.querySelector(".profile__subtitle");
 const editButtonElem = document.querySelector(".profile__edit-button");
 const addButtonElem = document.querySelector(".profile__add-button");
 
@@ -57,10 +58,10 @@ const cardsElem = document.querySelector(".cards");
 //   document.removeEventListener("keydown", closeEscPopup);
 // }
 
-function handleEditFormSubmit(name, job) {
-  profileTitleElem.textContent = name;
-  profileSubtitleElem.textContent = job;
-}
+// function handleEditFormSubmit(name, job) {
+//   profileTitleElem.textContent = name;
+//   profileSubtitleElem.textContent = job;
+// }
 
 /* -------------- Окно добавления ------------ */
 
@@ -131,6 +132,15 @@ addButtonElem.addEventListener("click", () => {
 }); //+
 
 addPopupNew.setEventListeners();  //+
+
+
+function handleEditFormSubmit(name, job) {
+  const userInfo = new UserInfo({name: ".profile__title", job: ".profile__subtitle"});
+  userInfo.setUserInfo(name, job);
+}
+
+
+
 
 const editPopupNew = new PopupWithForm('.edit-popup', handleEditFormSubmit); //+
 editButtonElem.addEventListener("click", () => {
