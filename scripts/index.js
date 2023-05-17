@@ -7,8 +7,7 @@ import FormValidator from "./components/FormValidator.js";
 import PopupWithForm from "./components/PopupWithForm.js";
 import PopupWithImage from "./components/PopupWithImage.js";
 import UserInfo from "./components/UserInfo.js";
-// import Popup from "./components/PopupWithForm.js";
-// import Popup from "./components/PopupWithImage.js";
+import Section from "./components/Section.js";
 
 // const profileTitleElem = document.querySelector(".profile__title");
 // const profileSubtitleElem = document.querySelector(".profile__subtitle");
@@ -71,15 +70,22 @@ const cardsElem = document.querySelector(".cards");
 //   pictureDescriptionElem.textContent = name;
 //   return openPopup(imagePopupElem);
 // }
+
+
+
+
 const imagePopupElem = new PopupWithImage('.image-popup');
 
 imagePopupElem.setEventListeners();
+
 
 const createCard = (cardItem) => {
   const card = new Card(cardItem, ".template-card", imagePopupElem.open);
   const cardElem = card.getCard();
   return cardElem;
 };
+
+const section = new Section({ items: initialCards, renderer: createCard }, ".cards");
 
 const addFormValidator = new FormValidator(validationConfig, formAddPopupElem);
 const editFormValidator = new FormValidator(
@@ -88,14 +94,11 @@ const editFormValidator = new FormValidator(
 );
 
 function handleAddFormSubmit(name, link) {
-  const cardItem = {
-    name: name,
-    link: link,
-  };
-  const cardElem = createCard(cardItem);
-  addFormValidator.resetValidation();
-
-  cardsElem.prepend(cardElem);
+  const cardItem = { name, link };
+  const cardElem = createCard(cardItem);  
+  
+  // cardsElem.prepend(cardElem); // - 
+  section.addItem(cardElem);
 }
 
 // function handleAddFormSubmit(evt) {
@@ -112,10 +115,14 @@ function handleAddFormSubmit(name, link) {
 //   cardsElem.prepend(cardElem);
 // }
 
-initialCards.forEach((cardItem) => {
-  const cardElem = createCard(cardItem);
-  cardsElem.append(cardElem);
-});
+section.renderer();
+
+// const renderer = initialCards.forEach((cardItem) => {
+//   const cardElem = createCard(cardItem);
+//   cardsElem.append(cardElem);
+// });
+
+
 addFormValidator.enableValidation();
 editFormValidator.enableValidation();
 
@@ -129,6 +136,7 @@ editFormValidator.enableValidation();
 const addPopupNew = new PopupWithForm('.add-popup', handleAddFormSubmit); //+
 addButtonElem.addEventListener("click", () => {
   addPopupNew.open();
+  addFormValidator.resetValidation(); 
 }); //+
 
 addPopupNew.setEventListeners();  //+
@@ -145,6 +153,7 @@ function handleEditFormSubmit(name, job) {
 const editPopupNew = new PopupWithForm('.edit-popup', handleEditFormSubmit); //+
 editButtonElem.addEventListener("click", () => {
   editPopupNew.open();
+  editFormValidator.resetValidation();
 }); //+
 
 editPopupNew.setEventListeners();  //+
