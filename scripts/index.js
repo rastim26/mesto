@@ -1,5 +1,5 @@
-import { validationConfig } from "./validationConfig.js";
-import { initialCards } from "./cards.js";
+import { validationConfig } from "./utils/validationConfig.js";
+import { initialCards } from "./utils/cards.js";
 import Card from "./components/Card.js";
 import FormValidator from "./components/FormValidator.js";
 
@@ -32,7 +32,7 @@ const formAddPopupElem = addPopupElement.querySelector(".add-popup__form");
 
 // const popupList = Array.from(document.querySelectorAll(".popup"));
 // const closeButtons = document.querySelectorAll(".popup__close");
-const cardsElem = document.querySelector(".cards");
+// const cardsElem = document.querySelector(".cards");
 
 // const closePopupByOverlay = (evt) => {
 //   if (evt.target === evt.currentTarget) {
