@@ -1,3 +1,4 @@
+import '../pages/index.css'; // добавьте импорт главного файла стилей 
 import { validationConfig } from "./utils/validationConfig.js";
 import { initialCards } from "./utils/cards.js";
 import { buttonOpenPopupProfile, buttonOpenPopupCard, formPopupProfileElem, inputNameProfileElem, inputJobProfileElem, formPopupCardElem } from "./utils/consts.js";
