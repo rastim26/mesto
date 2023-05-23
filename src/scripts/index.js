@@ -1,14 +1,12 @@
-import '../pages/index.css'; // добавьте импорт главного файла стилей 
-
 import { validationConfig } from "./utils/validationConfig.js";
 import { initialCards } from "./utils/cards.js";
+import { buttonOpenPopupProfile, buttonOpenPopupCard, formPopupProfileElem, inputNameProfileElem, inputJobProfileElem, formPopupCardElem } from "./utils/consts.js";
 import Card from "./components/Card.js";
 import FormValidator from "./components/FormValidator.js";
 import PopupWithForm from "./components/PopupWithForm.js";
 import PopupWithImage from "./components/PopupWithImage.js";
 import UserInfo from "./components/UserInfo.js";
 import Section from "./components/Section.js";
-import { buttonOpenPopupProfile, buttonOpenPopupCard, formPopupProfileElem, formPopupCardElem } from "./utils/consts.js";
 
 const popupImageElem = new PopupWithImage('.image-popup');
 
@@ -34,6 +32,11 @@ function handleFormProfileSubmit(userData) {
   userInfo.setUserInfo(userData);
 }
 
+function setProfileInputValues(userData) {
+  inputNameProfileElem.value = userData.name;
+  inputJobProfileElem.value = userData.job;
+}
+
 section.renderer();
 validatorFormCard.enableValidation();
 validatorFormProfile.enableValidation();
@@ -46,7 +49,7 @@ buttonOpenPopupCard.addEventListener("click", () => {
 buttonOpenPopupProfile.addEventListener("click", () => {
   const userData = userInfo.getUserInfo();
   popupProfile.open();
-  popupProfile.setInputValues(userData);
+  setProfileInputValues(userData);
   validatorFormProfile.resetValidation();
 }); 
 

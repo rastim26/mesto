@@ -6,8 +6,6 @@ export default class PopupWithForm extends Popup {
         this._handleFormSubmit = handleFormSubmit;
         this._formElem = this._popupElem.querySelector(".popup__form");
         this._inputs = Array.from(this._formElem.querySelectorAll('.popup__input'));
-        this._inputName = this._formElem.querySelector('.popup__input_type_name');
-        this._inputJob = this._formElem.querySelector('.popup__input_type_info');
     }
 
     open() {
@@ -17,11 +15,6 @@ export default class PopupWithForm extends Popup {
     close() {
         super.close();
         this._formElem.reset();
-    }
-
-    setInputValues(data) {
-        this._inputName.value = data.name;
-        this._inputJob.value = data.job;
     }
 
     setEventListeners() {
