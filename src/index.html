@@ -5,21 +5,21 @@
   <meta charset="UTF-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <!-- <link rel="stylesheet" href="./pages/index.css"> -->
+  <link rel="stylesheet" href="./pages/index.css">
   <title>Mesto</title>
 </head>
 
 <body class="page">
   <div class="page__container">
     <header class="header">
-      <img src="<%=require('./images/header__logo.svg')%>" alt="место лого" class="header__logo" />
-      <!-- <img src="./images/header__logo.svg" alt="место лого" class="header__logo" /> -->
+      <!-- <img src="<%=require('./images/header__logo.svg')%>" alt="место лого" class="header__logo" /> -->
+      <img src="./images/header__logo.svg" alt="место лого" class="header__logo" />
     </header>
     <main class="content">
       <section class="profile">
         <div class="profile__user">
-          <img src="<%=require('./images/header__avatar.jpeg')%>" alt="аватар" class="profile__avatar" />
-          <!-- <img src="./images/header__avatar.jpeg" alt="аватар" class="profile__avatar" /> -->
+          <!-- <img src="<%=require('./images/header__avatar.jpeg')%>" alt="аватар" class="profile__avatar" /> -->
+          <img src="./images/header__avatar.jpeg" alt="аватар" class="profile__avatar" />
           <div class="profile__control">
             <div class="profile__info">
               <h1 class="profile__title">Жак-Ив Кусто</h1>
@@ -39,7 +39,10 @@
               <button aria-label="Delete" class="cards__button-del" type="button"></button>
               <div class="cards__descr">
                 <h2 class="cards__title"></h2>
-                <button aria-label="Like" class="cards__button" type="button"></button>
+                <div class="cards__like">
+                  <button aria-label="Like" class="cards__button" type="button"></button>
+                  <p class="cards__display">0</p>
+                </div>
               </div>
             </li>
           </template>
@@ -60,9 +63,9 @@
           minlength="2" maxlength="40" />
         <span class="popup__error name-error">Вы пропустили это поле.</span>
 
-        <input id="job" name="job" type="text" placeholder="О себе" class="popup__input popup__input_type_info" required
+        <input id="about" name="about" type="text" placeholder="О себе" class="popup__input popup__input_type_info" required
           minlength="2" maxlength="200" />
-        <span class="popup__error job-error">Вы пропустили это поле.</span>
+        <span class="popup__error about-error">Вы пропустили это поле.</span>
         <button type="submit" aria-label="Save" class="popup__button">
           сохранить
         </button>
@@ -99,7 +102,7 @@
     </div>
   </section>
   <!-- /.image-popup -->
-  <!-- <script src="./scripts/index.js" type="module"></script> -->
+  <script src="./scripts/index.js" type="module"></script>
 </body>
 
 </html>

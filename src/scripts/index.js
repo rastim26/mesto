@@ -1,6 +1,6 @@
-import '../pages/index.css'; // добавьте импорт главного файла стилей 
+// import '../pages/index.css'; // добавьте импорт главного файла стилей 
 import { validationConfig } from "./utils/validationConfig.js";
-import { initialCards } from "./utils/cards.js";
+// import { initialCards } from "./utils/cards.js";
 import { buttonOpenPopupProfile, buttonOpenPopupCard, formPopupProfileElem, inputNameProfileElem, inputJobProfileElem, formPopupCardElem } from "./utils/consts.js";
 import Card from "./components/Card.js";
 import FormValidator from "./components/FormValidator.js";
@@ -8,25 +8,69 @@ import PopupWithForm from "./components/PopupWithForm.js";
 import PopupWithImage from "./components/PopupWithImage.js";
 import UserInfo from "./components/UserInfo.js";
 import Section from "./components/Section.js";
+import { api } from "./Api.js";
+
+
+function getServerCards() {
+  api.getCards()
+  .then((data) => {
+    data.forEach((item) => {
+      const cardElem = createCard(item);
+      section.addItem(cardElem);
+    });
+  })
+  .catch(() => { console.log('api.getCards() is wrong!') });
+  
+}
+
+function handlePatchUserInfo({name, about}) {
+  api.patchUserInfo(name, about);
+  handleFormProfileSubmit({name, about});
+}
+
+
+function handleGetUserInfo() {
+  api.getUserInfo()
+  .then((data) => {
+    userInfo.setUserInfo(data);
+  })
+  // .catch(() => { console.log('Something went wrong!') });
+}
+
+handleGetUserInfo();
+
 
 const popupImageElem = new PopupWithImage('.image-popup');
 
-const createCard = (cardData) => {
+const createCard = (cardData) => { 
   const card = new Card(cardData, ".template-card",popupImageElem.open);
   const cardElem = card.getCard();
   return cardElem;
 };
 
-const section = new Section({ items: initialCards, renderer: createCard }, ".cards");
+const section = new Section({ 
+  // items: initialCards, 
+  renderer: createCard }, ".cards", getServerCards);
+
 const validatorFormCard = new FormValidator(validationConfig, formPopupCardElem);
 const validatorFormProfile = new FormValidator(validationConfig,formPopupProfileElem);
+
 const popupCard = new PopupWithForm('.add-popup', handleFormCardSubmit); 
-const popupProfile = new PopupWithForm('.edit-popup', handleFormProfileSubmit); 
-const userInfo = new UserInfo({nameElem: ".profile__title", jobElem: ".profile__subtitle"});
+const popupProfile = new PopupWithForm('.edit-popup', handlePatchUserInfo); 
+
+const userInfo = new UserInfo({nameElem: ".profile__title", aboutElem: ".profile__subtitle"});
 
 function handleFormCardSubmit(cardData) {
-  const cardElem = createCard(cardData);  
-  section.addItem(cardElem);
+  api.addNewCard(cardData)
+  .then(res => {
+    if (res.ok) {
+        const cardElem = createCard(cardData);  
+        section.addItem(cardElem);
+    } else {
+        ///..
+    }
+  })
+  .catch(() => { console.log('Something went wrong!') });
 }
 
 function handleFormProfileSubmit(userData) {
@@ -35,7 +79,7 @@ function handleFormProfileSubmit(userData) {
 
 function setProfileInputValues(userData) {
   inputNameProfileElem.value = userData.name;
-  inputJobProfileElem.value = userData.job;
+  inputJobProfileElem.value = userData.about;
 }
 
 section.renderer();
