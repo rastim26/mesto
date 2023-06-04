@@ -1,6 +1,6 @@
-// import '../pages/index.css'; // добавьте импорт главного файла стилей 
+// import '../pages/index.css'; // добавьте импорт главного файла стилей
+
 import { validationConfig } from "./utils/validationConfig.js";
-// import { initialCards } from "./utils/cards.js";
 import { buttonOpenPopupProfile, buttonOpenPopupCard, formPopupProfileElem, inputNameProfileElem, inputJobProfileElem, formPopupCardElem } from "./utils/consts.js";
 import Card from "./components/Card.js";
 import FormValidator from "./components/FormValidator.js";
@@ -12,38 +12,44 @@ import { api } from "./Api.js";
 
 
 function getServerCards() {
-  api.getCards()
+  return api.getInitialCards()
   .then((data) => {
     data.forEach((item) => {
       const cardElem = createCard(item);
       section.addItem(cardElem);
     });
   })
-  .catch(() => { console.log('api.getCards() is wrong!') });
-  
-}
-
-function handlePatchUserInfo({name, about}) {
-  api.patchUserInfo(name, about);
-  handleFormProfileSubmit({name, about});
+  .catch((err) => {
+    console.log(err);
+  }); 
 }
 
 
 function handleGetUserInfo() {
-  api.getUserInfo()
-  .then((data) => {
-    userInfo.setUserInfo(data);
+  return api.getUserInfo()
+  .then((userData) => {
+    userInfo.setUserInfo(userData);
+    return userData._id;
   })
-  // .catch(() => { console.log('Something went wrong!') });
+  
 }
 
-handleGetUserInfo();
+// handleGetUserInfo();
+
+// api.getUserInfo()
+// .then((userData) => {
+//   userInfo.setUserInfo(userData);
+//   card._showDelButton(userData._id)
+// })
+// .catch((err) => {
+//   console.log(err);
+// }); 
 
 
 const popupImageElem = new PopupWithImage('.image-popup');
 
 const createCard = (cardData) => { 
-  const card = new Card(cardData, ".template-card",popupImageElem.open);
+  const card = new Card(cardData, ".template-card",popupImageElem.open, handleFormDelete, handleGetUserInfo);
   const cardElem = card.getCard();
   return cardElem;
 };
@@ -56,25 +62,42 @@ const validatorFormCard = new FormValidator(validationConfig, formPopupCardElem)
 const validatorFormProfile = new FormValidator(validationConfig,formPopupProfileElem);
 
 const popupCard = new PopupWithForm('.add-popup', handleFormCardSubmit); 
-const popupProfile = new PopupWithForm('.edit-popup', handlePatchUserInfo); 
+const popupProfile = new PopupWithForm('.edit-popup', handleFormProfileSubmit); 
+const popupDelete = new PopupWithForm('.delete-popup', handleFormDelete);
 
 const userInfo = new UserInfo({nameElem: ".profile__title", aboutElem: ".profile__subtitle"});
 
-function handleFormCardSubmit(cardData) {
-  api.addNewCard(cardData)
-  .then(res => {
-    if (res.ok) {
-        const cardElem = createCard(cardData);  
-        section.addItem(cardElem);
-    } else {
-        ///..
-    }
+
+function handleFormDelete(cardId, cardElem) {
+  api.deleteCard(cardId)
+  .then(() => {
+    cardElem.remove();
+    cardElem = null;  
   })
-  .catch(() => { console.log('Something went wrong!') });
+  .catch((err) => {
+    console.log(err);
+  }); 
+}
+
+function handleFormCardSubmit(cardSentData) {
+  api.addNewCard(cardSentData)
+  .then((cardResData) => {
+    const cardElem = createCard(cardResData);  
+    section.addItem(cardElem);
+  })
+  .catch((err) => {
+    console.log(err);
+  }); 
 }
 
 function handleFormProfileSubmit(userData) {
-  userInfo.setUserInfo(userData);
+  api.patchUserInfo(userData)
+  .then((userDataRes) => {
+    userInfo.setUserInfo(userDataRes);
+  })
+  .catch((err) => {
+    console.log(err);
+  }); 
 }
 
 function setProfileInputValues(userData) {
@@ -85,6 +108,7 @@ function setProfileInputValues(userData) {
 section.renderer();
 validatorFormCard.enableValidation();
 validatorFormProfile.enableValidation();
+
 
 buttonOpenPopupCard.addEventListener("click", () => {
   popupCard.open();

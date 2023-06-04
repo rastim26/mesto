@@ -12,6 +12,7 @@
   background-position: center;
   cursor: pointer;
   transition: opacity 0.2s ease-in;
+  display: none;
 }
 
 .cards__button-del:hover {
