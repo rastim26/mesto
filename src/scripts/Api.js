@@ -1,13 +1,12 @@
-import { authorizationData } from "./utils/authorizationConfig.js";
-
 class Api {
-    constructor(authorizationData) {
-        this._cohort = authorizationData.cohort;
-        this._token = authorizationData.token;
+    constructor(host, cohort, token) {
+        this._host = host;
+        this._cohort = cohort;
+        this._token = token;
     }
 
     getInitialCards = () => {
-        return fetch(`https://mesto.nomoreparties.co/v1/${this._cohort}/cards`, {
+        return fetch(`https://${this._host}/${this._cohort}/cards`, {
             headers: {
                 authorization: this._token,
                 'Content-Type': 'application/json'
@@ -22,7 +21,7 @@ class Api {
     }
 
     addNewCard = ({ name, link }) => {
-        return fetch(`https://mesto.nomoreparties.co/v1/${this._cohort}/cards`, {
+        return fetch(`https://${this._host}/${this._cohort}/cards`, {
             method: 'POST',
             headers: {
                 authorization: this._token,
@@ -39,7 +38,7 @@ class Api {
     }
 
     deleteCard = (cardId) => {
-        return fetch(`https://mesto.nomoreparties.co/v1/${this._cohort}/cards/${cardId}`, {
+        return fetch(`https://${this._host}/${this._cohort}/cards/${cardId}`, {
             method: 'DELETE',
             headers: {
                 authorization: this._token,
@@ -55,7 +54,7 @@ class Api {
     }
 
     patchUserInfo = ({ name, about }) => {
-        return fetch(`https://mesto.nomoreparties.co/v1/${this._cohort}/users/me`, {
+        return fetch(`https://${this._host}/${this._cohort}/users/me`, {
             method: 'PATCH',
             headers: {
                 authorization: this._token,
@@ -72,7 +71,7 @@ class Api {
     }
 
     getUserInfo = () => {
-        return fetch(`https://mesto.nomoreparties.co/v1/${this._cohort}/users/me`, {
+        return fetch(`https://${this._host}/${this._cohort}/users/me`, {
             headers: {
                 authorization: this._token,
                 'Content-Type': 'application/json'
@@ -89,4 +88,4 @@ class Api {
 
 }
 
-export const api = new Api(authorizationData);
+export const api = new Api('mesto.nomoreparties.co/v1', 'cohort-66','daca49b5-68d6-4b10-a310-ee0cfcd15750');

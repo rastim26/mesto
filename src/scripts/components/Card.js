@@ -40,16 +40,6 @@ export default class Card {
     }); 
   }
 
-  // _showDelButton() {
-  //   this._checkOwner();
-  //   console.log(this._isOwner);
-  //   if (this._isOwner) {
-  //     this._delCardElem.classList.add('cards__button-del_active');
-  //   } else {
-  //     this._delCardElem.classList.remove('cards__button-del_active');
-  //   }
-  // }
-
   _createCard() {
     this._imgCardElem.src = this._cardData.link;
     this._imgCardElem.alt = this._cardData.name;
