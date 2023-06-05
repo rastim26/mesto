@@ -34,22 +34,10 @@ function handleGetUserInfo() {
   
 }
 
-// handleGetUserInfo();
-
-// api.getUserInfo()
-// .then((userData) => {
-//   userInfo.setUserInfo(userData);
-//   card._showDelButton(userData._id)
-// })
-// .catch((err) => {
-//   console.log(err);
-// }); 
-
-
 const popupImageElem = new PopupWithImage('.image-popup');
 
 const createCard = (cardData) => { 
-  const card = new Card(cardData, ".template-card",popupImageElem.open, handleFormDelete, handleGetUserInfo);
+  const card = new Card(cardData, ".template-card",popupImageElem.open, openDeleteCardForm, handleGetUserInfo);
   const cardElem = card.getCard();
   return cardElem;
 };
@@ -59,24 +47,23 @@ const section = new Section({
   renderer: createCard }, ".cards", getServerCards);
 
 const validatorFormCard = new FormValidator(validationConfig, formPopupCardElem);
-const validatorFormProfile = new FormValidator(validationConfig,formPopupProfileElem);
+const validatorFormProfile = new FormValidator(validationConfig, formPopupProfileElem);
 
 const popupCard = new PopupWithForm('.add-popup', handleFormCardSubmit); 
 const popupProfile = new PopupWithForm('.edit-popup', handleFormProfileSubmit); 
-const popupDelete = new PopupWithForm('.delete-popup', handleFormDelete);
+const popupDelete = new PopupWithForm('.delete-popup', () => {
+  ///
+});
 
 const userInfo = new UserInfo({nameElem: ".profile__title", aboutElem: ".profile__subtitle"});
 
 
-function handleFormDelete(cardId, cardElem) {
+function handleFormDeleteSubmit(cardId) {
   api.deleteCard(cardId)
-  .then(() => {
-    cardElem.remove();
-    cardElem = null;  
-  })
-  .catch((err) => {
-    console.log(err);
-  }); 
+}
+
+function openDeleteCardForm() {
+  popupDelete.open();
 }
 
 function handleFormCardSubmit(cardSentData) {
@@ -125,6 +112,7 @@ buttonOpenPopupProfile.addEventListener("click", () => {
 popupImageElem.setEventListeners();
 popupCard.setEventListeners();  
 popupProfile.setEventListeners();  
+popupDelete.setEventListeners();  
 
 // const profileTitleElem = document.querySelector(".profile__title");
 // const profileSubtitleElem = document.querySelector(".profile__subtitle");

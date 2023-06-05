@@ -1,9 +1,10 @@
 export default class Card {
-  constructor(cardData, cardTemplateSelector, handleCardClick, handleFormDelete, handleGetUserInfo) {
+  constructor(cardData, cardTemplateSelector, handleCardClick, openDeleteCardForm, handleGetUserInfo, handleFormDeleteSubmit) {
     this._cardData = cardData;
     this._handleCardClick = handleCardClick;
-    this._handleFormDelete = handleFormDelete;
+    this._openDeleteCardForm = openDeleteCardForm;
     this._handleGetUserInfo = handleGetUserInfo;
+    this._handleFormDeleteSubmit = handleFormDeleteSubmit;
     this._cardElem = document
       .querySelector(cardTemplateSelector)
       .content
@@ -20,6 +21,17 @@ export default class Card {
   getCard() {
     this._createCard();
     return this._cardElem;
+  }
+
+  deleteCard() {
+    this._handleFormDeleteSubmit()
+    .then(() => {
+      this._cardElem.remove();
+      this._cardElem = null;  
+    })
+    .catch((err) => {
+      console.log(err);
+    }); 
   }
 
   _showLikes() {
@@ -52,7 +64,7 @@ export default class Card {
   _setEventListeners() {
     this._likeButtonCardElem.addEventListener("click", this._toggleLike);
     this._delCardElem.addEventListener("click", () => {
-      this._handleFormDelete(this._cardData._id, this._cardElem);
+      this._openDeleteCardForm(this._cardData._id, this._cardElem);
     });
     this._imgCardElem.addEventListener("click", () => {
       this._handleCardClick(this._cardData.name, this._cardData.link);

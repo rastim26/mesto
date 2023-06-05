@@ -1,91 +1,73 @@
 class Api {
-    constructor(host, cohort, token) {
-        this._host = host;
-        this._cohort = cohort;
-        this._token = token;
+    constructor(options) {
+        this._baseUrl = options.baseUrl;
+        this._headers = options.headers;
     }
 
+    _checkResponse = (res) => res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`);
+
     getInitialCards = () => {
-        return fetch(`https://${this._host}/${this._cohort}/cards`, {
-            headers: {
-                authorization: this._token,
-                'Content-Type': 'application/json'
-            }
+        return fetch(`${this._baseUrl}/cards`, {
+            headers: this._headers
         })
-        .then(res => {
-            if (res.ok) {
-                return res.json();
-            }
-            return Promise.reject(`Ошибка: ${res.status}`);
-        })
+        .then(this._checkResponse)
     }
 
     addNewCard = ({ name, link }) => {
-        return fetch(`https://${this._host}/${this._cohort}/cards`, {
+        return fetch(`${this._baseUrl}/cards`, {
             method: 'POST',
-            headers: {
-                authorization: this._token,
-                'Content-Type': 'application/json'
-            },
+            headers: this._headers,
             body: JSON.stringify({ name, link })
         })
-        .then(res => {
-            if (res.ok) {
-                return res.json();
-            }
-            return Promise.reject(`Ошибка: ${res.status}`);
-        })
+        .then(this._checkResponse)
     }
 
     deleteCard = (cardId) => {
-        return fetch(`https://${this._host}/${this._cohort}/cards/${cardId}`, {
+        return fetch(`${this._baseUrl}/cards/${cardId}`, {
             method: 'DELETE',
-            headers: {
-                authorization: this._token,
-                'Content-Type': 'application/json'
-            }
+            headers: this._headers
         })
-        .then(res => {
-            if (res.ok) {
-                return res.json();
-            }
-            return Promise.reject(`Ошибка: ${res.status}`);
-        })
+        .then(this._checkResponse)
     }
 
     patchUserInfo = ({ name, about }) => {
-        return fetch(`https://${this._host}/${this._cohort}/users/me`, {
+        return fetch(`${this._baseUrl}/users/me`, {
             method: 'PATCH',
-            headers: {
-                authorization: this._token,
-                'Content-Type': 'application/json'
-            },
+            headers: this._headers,
             body: JSON.stringify({ name, about })
         })
-        .then(res => {
-            if (res.ok) {
-                return res.json();
-            }
-            return Promise.reject(`Ошибка: ${res.status}`);
-        })
+        .then(this._checkResponse)
     }
 
     getUserInfo = () => {
-        return fetch(`https://${this._host}/${this._cohort}/users/me`, {
-            headers: {
-                authorization: this._token,
-                'Content-Type': 'application/json'
-            }
+        return fetch(`${this._baseUrl}/users/me`, {
+            headers: this._headers
         })
-        .then(res => {
-            if (res.ok) {
-                return res.json();
-            }
-            return Promise.reject(`Ошибка: ${res.status}`);
-        })
+        .then(this._checkResponse)
     }
 
+    likeCard = (cardId) => {
+        return fetch(`${this._baseUrl}/cards/${cardId}/likes`, {
+            method: 'PUT',
+            headers: this._headers
+        })
+        .then(this._checkResponse)
+    }
+
+    unlikeCard = (cardId) => {
+        return fetch(`${this._baseUrl}/cards/${cardId}/likes`, {
+            method: 'DELETE',
+            headers: this._headers
+        })
+        .then(this._checkResponse)
+    }
 
 }
 
-export const api = new Api('mesto.nomoreparties.co/v1', 'cohort-66','daca49b5-68d6-4b10-a310-ee0cfcd15750');
+export const api = new Api({
+    baseUrl: 'https://nomoreparties.co/v1/cohort-66',
+    headers:  {
+        authorization: 'daca49b5-68d6-4b10-a310-ee0cfcd15750',
+        'Content-Type': 'application/json'
+    }
+});
