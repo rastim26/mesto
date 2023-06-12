@@ -12,32 +12,25 @@ import { api } from "./Api.js";
 
 
 function getServerCards() {
-  return api.getInitialCards()
-  .then((data) => {
-    data.forEach((item) => {
-      const cardElem = createCard(item);
-      section.addItem(cardElem);
-    });
-  })
-  .catch((err) => {
-    console.log(err);
-  }); 
+  return api.getCards()
 }
-
 
 function handleGetUserInfo() {
   return api.getUserInfo()
-  .then((userData) => {
-    userInfo.setUserInfo(userData);
-    return userData._id;
-  })
-  
 }
+
+
+
+
+
 
 const popupImageElem = new PopupWithImage('.image-popup');
 
-const createCard = (cardData) => { 
-  const card = new Card(cardData, ".template-card",popupImageElem.open, openDeleteCardForm, handleGetUserInfo);
+const createCard = (cardData, userData) => { 
+  const card = new Card(cardData, ".template-card", popupImageElem.open, openDeleteCardForm, 
+  // handleGetUserInfo,
+  userData
+  );
   const cardElem = card.getCard();
   return cardElem;
 };
@@ -55,8 +48,23 @@ const popupDelete = new PopupWithForm('.delete-popup', () => {
   ///
 });
 
-const userInfo = new UserInfo({nameElem: ".profile__title", aboutElem: ".profile__subtitle"});
+const userInfo = new UserInfo({nameElem: ".profile__title", aboutElem: ".profile__subtitle"}, handleGetUserInfo);
 
+Promise.all([handleGetUserInfo(), getServerCards()])
+// тут деструктурируете ответ от сервера, чтобы было понятнее, что пришло
+.then(([userData, cards]) => {
+  // тут установка данных пользователя
+  // и тут отрисовка карточек
+  userInfo.setUserInfo(userData);
+
+  cards.forEach((card) => {
+    const cardElem = createCard(card, userData);
+    section.addItem(cardElem);
+  });
+})
+.catch(err => {
+  console.log(err);
+});
 
 function handleFormDeleteSubmit(cardId) {
   api.deleteCard(cardId)
@@ -72,15 +80,21 @@ function handleFormCardSubmit(cardSentData) {
     const cardElem = createCard(cardResData);  
     section.addItem(cardElem);
   })
+  .then(() => {
+    popupCard.close();
+  })
   .catch((err) => {
     console.log(err);
-  }); 
+  });
 }
 
 function handleFormProfileSubmit(userData) {
   api.patchUserInfo(userData)
   .then((userDataRes) => {
     userInfo.setUserInfo(userDataRes);
+  })
+  .then(() => {
+    popupProfile.close();
   })
   .catch((err) => {
     console.log(err);
@@ -92,10 +106,9 @@ function setProfileInputValues(userData) {
   inputJobProfileElem.value = userData.about;
 }
 
-section.renderer();
+// section.renderer();
 validatorFormCard.enableValidation();
 validatorFormProfile.enableValidation();
-
 
 buttonOpenPopupCard.addEventListener("click", () => {
   popupCard.open();
