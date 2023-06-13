@@ -1,13 +1,15 @@
 export default class Card {
-  constructor(cardData, cardTemplateSelector, handleCardClick, openDeleteCardForm, 
-    // handleGetUserInfo,
+  constructor(
+    cardData, 
+    cardTemplateSelector, 
+    handleCardClick,  
+    openDeleteCardForm,
     userData, 
     handleFormDeleteSubmit) {
     this._cardData = cardData;
     this._handleCardClick = handleCardClick;
     this._openDeleteCardForm = openDeleteCardForm;
-    // this._handleGetUserInfo = handleGetUserInfo;
-    this.userData = userData;
+    this._userData = userData;
     this._handleFormDeleteSubmit = handleFormDeleteSubmit;
     this._cardElem = document
       .querySelector(cardTemplateSelector)
@@ -19,7 +21,6 @@ export default class Card {
     this._likeButtonCardElem = this._cardElem.querySelector(".cards__button");
     this._delCardElem = this._cardElem.querySelector(".cards__button-del");
     this._likeDisplayElem = this._cardElem.querySelector(".cards__display");
-
   }
   
   getCard() {
@@ -43,13 +44,7 @@ export default class Card {
   }
 
   _showDelButton = () => {
-    // this._handleGetUserInfo()
-    // .then((userData) => {
-    // })
-    // .catch((err) => {
-    //   console.log(err);
-    // }); 
-    if (this._cardData.owner._id === this.userData._id) {
+    if (this._cardData.owner._id === this._userData._id) {
       this._delCardElem.classList.add('cards__button-del_active');
     } else {
       this._delCardElem.classList.remove('cards__button-del_active');
@@ -68,7 +63,7 @@ export default class Card {
   _setEventListeners() {
     this._likeButtonCardElem.addEventListener("click", this._toggleLike);
     this._delCardElem.addEventListener("click", () => {
-      this._openDeleteCardForm(this._cardData._id, this._cardElem);
+      this._openDeleteCardForm(this._cardData._id);
     });
     this._imgCardElem.addEventListener("click", () => {
       this._handleCardClick(this._cardData.name, this._cardData.link);

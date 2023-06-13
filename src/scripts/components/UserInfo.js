@@ -1,11 +1,7 @@
 export default class UserInfo {
-    constructor(userInfoSelectors
-        // , handleGetUserInfo
-        ) {
+    constructor(userInfoSelectors) {
         this._profileTitleElem = document.querySelector(userInfoSelectors.nameElem);
         this._profileSubtitleElem = document.querySelector(userInfoSelectors.aboutElem);
-        // this._handleGetUserInfo = handleGetUserInfo;
-    
     }
 
     getUserInfo() {
