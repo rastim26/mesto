@@ -53,11 +53,11 @@ const popupAvatar = new PopupWithForm('.avatar-popup', handleFormAvatarSubmit);
 const popupProfile = new PopupWithForm('.edit-popup', handleFormProfileSubmit); 
 
 
-const userInfo = new UserInfo({nameElem: ".profile__title", aboutElem: ".profile__subtitle"});
+const userInfo = new UserInfo({nameElem: ".profile__title", aboutElem: ".profile__subtitle"}, getUserInfo);
 
-// function getUserInfo() {
-//   api.getUserInfo()
-// }
+function getUserInfo() {
+  api.getUserInfo()
+}
 
 Promise.all([api.getUserInfo(), api.getCards()])
 .then(([userData, cards]) => {
