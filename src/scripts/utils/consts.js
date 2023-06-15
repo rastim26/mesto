@@ -1,3 +1,5 @@
+const profileAvatarElem = document.querySelector(".profile__avatar");
+const buttonOpenPopupAvatar = document.querySelector(".profile__overlay");
 const buttonOpenPopupProfile = document.querySelector(".profile__edit-button");
 const buttonOpenPopupCard = document.querySelector(".profile__add-button");
 
@@ -9,4 +11,7 @@ const inputJobProfileElem = formPopupProfileElem.querySelector('.popup__input_ty
 const popupCardElement = document.querySelector(".add-popup");
 const formPopupCardElem = popupCardElement.querySelector(".add-popup__form");
 
-export { buttonOpenPopupProfile, buttonOpenPopupCard, formPopupProfileElem, inputNameProfileElem, inputJobProfileElem, formPopupCardElem };
+const popupAvatarElement = document.querySelector(".avatar-popup");
+const formPopupAvatarElem = popupAvatarElement.querySelector(".avatar-popup__form");
+
+export { buttonOpenPopupProfile, buttonOpenPopupCard, formPopupProfileElem, inputNameProfileElem, inputJobProfileElem, formPopupCardElem, buttonOpenPopupAvatar, profileAvatarElem, formPopupAvatarElem };

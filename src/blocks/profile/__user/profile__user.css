@@ -1,6 +1,7 @@
 .profile__user {
   display: flex;
   align-items: center;
+  position: relative;
 }
 @media (max-width: 450px) {
   .profile__user {

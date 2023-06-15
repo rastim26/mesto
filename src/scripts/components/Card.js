@@ -38,9 +38,6 @@ export default class Card {
       this._cardElem.remove();
       this._cardElem = null;  
     })
-    .catch((err) => {
-      console.log(err);
-    }); 
   }
 
   _showLikes() {
@@ -87,7 +84,6 @@ export default class Card {
   }
 
   _toggleLike = () => {
-    console.log(this._isLikedByMe());
     if (!this._isLikedByMe()) {
       this._likeCard(this._cardData._id)
       .then((res) => {

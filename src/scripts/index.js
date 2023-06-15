@@ -1,7 +1,7 @@
 // import '../pages/index.css'; // добавьте импорт главного файла стилей
 
 import { validationConfig } from "./utils/validationConfig.js";
-import { buttonOpenPopupProfile, buttonOpenPopupCard, formPopupProfileElem, inputNameProfileElem, inputJobProfileElem, formPopupCardElem } from "./utils/consts.js";
+import { buttonOpenPopupProfile, buttonOpenPopupCard, formPopupProfileElem, inputNameProfileElem, inputJobProfileElem, formPopupCardElem, buttonOpenPopupAvatar, profileAvatarElem, formPopupAvatarElem } from "./utils/consts.js";
 import Card from "./components/Card.js";
 import FormValidator from "./components/FormValidator.js";
 import PopupWithForm from "./components/PopupWithForm.js";
@@ -17,6 +17,10 @@ const likeCard = (cardId) => {
 
 const unlikeCard = (cardId) => {
   return api.unlikeCard(cardId)
+}
+
+const uploadAvatar = () => {
+
 }
 
 const createCard = (cardData, userId) => { 
@@ -40,19 +44,27 @@ const section = new Section({
   renderer: createCard }, ".cards");
     
 const validatorFormCard = new FormValidator(validationConfig, formPopupCardElem);
+const validatorFormAvatar = new FormValidator(validationConfig, formPopupAvatarElem);
 const validatorFormProfile = new FormValidator(validationConfig, formPopupProfileElem);
 
 const popupImageElem = new PopupWithImage('.image-popup');
-    
 const popupCard = new PopupWithForm('.add-popup', handleFormCardSubmit); 
+const popupAvatar = new PopupWithForm('.avatar-popup', handleFormAvatarSubmit);
 const popupProfile = new PopupWithForm('.edit-popup', handleFormProfileSubmit); 
 
 
 const userInfo = new UserInfo({nameElem: ".profile__title", aboutElem: ".profile__subtitle"});
 
+// function getUserInfo() {
+//   api.getUserInfo()
+// }
+
 Promise.all([api.getUserInfo(), api.getCards()])
 .then(([userData, cards]) => {
   userInfo.setUserInfo(userData);
+
+  profileAvatarElem.src = userData.avatar;
+
 
   cards.forEach((card) => {
     const cardElem = createCard(card, userData._id);
@@ -64,16 +76,7 @@ Promise.all([api.getUserInfo(), api.getCards()])
 });
 
 
-// const newPromise = new Promise(function (resolve, reject) {
-//   resolve(res1); // Сразу получим обработанный промис
-// });
-// newPromise
-// .then(() => {
-// })
-// .then(() => {
-// })
-// .catch(thirdAction);
-
+//-----------
 
 const popupDelete = new PopupWithSubmit('.delete-popup', openDeleteCardForm);
 
@@ -88,11 +91,9 @@ function handleFormDeleteSubmit(cardId) {
 
 popupDelete.setEventListeners();  
 
-
+//-----------
 
 function handleFormCardSubmit(cardSentData) {
-
-  
   api.addNewCard(cardSentData)
   .then((cardResData) => {
     cardResData.owner._id = userInfo.getUserID;
@@ -102,9 +103,6 @@ function handleFormCardSubmit(cardSentData) {
   .then(() => {
     popupCard.close();
   })
-  .catch((err) => {
-    console.log(err);
-  });
 }
 
 function handleFormProfileSubmit(userData) {
@@ -115,19 +113,33 @@ function handleFormProfileSubmit(userData) {
   .then(() => {
     popupProfile.close();
   })
-  .catch((err) => {
-    console.log(err);
-  }); 
 }
+
+function handleFormAvatarSubmit(imageData) {
+  api.uploadAvatar(imageData.link)
+  .then((res) => {
+    profileAvatarElem.src = res.avatar;
+  })
+  .then(() => {
+    popupAvatar.close();
+  })
+}
+
 
 function setProfileInputValues(userData) {
   inputNameProfileElem.value = userData.name;
   inputJobProfileElem.value = userData.about;
 }
 
+validatorFormAvatar.enableValidation();
 validatorFormCard.enableValidation();
 validatorFormProfile.enableValidation();
 
+
+buttonOpenPopupAvatar.addEventListener("click", () => {
+  popupAvatar.open();
+  validatorFormCard.resetValidation(); 
+});
 
 buttonOpenPopupCard.addEventListener("click", () => {
   popupCard.open();
@@ -141,6 +153,7 @@ buttonOpenPopupProfile.addEventListener("click", () => {
   validatorFormProfile.resetValidation();
 }); 
 
+popupAvatar.setEventListeners();
 popupImageElem.setEventListeners();
 popupCard.setEventListeners();  
 popupProfile.setEventListeners();  
