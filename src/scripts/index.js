@@ -5,20 +5,30 @@ import { buttonOpenPopupProfile, buttonOpenPopupCard, formPopupProfileElem, inpu
 import Card from "./components/Card.js";
 import FormValidator from "./components/FormValidator.js";
 import PopupWithForm from "./components/PopupWithForm.js";
+import PopupWithSubmit from "./components/PopupWithSubmit.js";
 import PopupWithImage from "./components/PopupWithImage.js";
 import UserInfo from "./components/UserInfo.js";
 import Section from "./components/Section.js";
 import { api } from "./Api.js";
 
+const likeCard = (cardId) => {
+  return api.likeCard(cardId)
+}
 
+const unlikeCard = (cardId) => {
+  return api.unlikeCard(cardId)
+}
 
-const createCard = (cardData, userData) => { 
+const createCard = (cardData, userId) => { 
   const card = new Card(
     cardData, 
     ".template-card", 
     popupImageElem.open, 
     openDeleteCardForm,
-    userData,
+    userId,
+    handleFormDeleteSubmit,
+    likeCard,
+    unlikeCard,
     );
 
   const cardElem = card.getCard();
@@ -45,7 +55,7 @@ Promise.all([api.getUserInfo(), api.getCards()])
   userInfo.setUserInfo(userData);
 
   cards.forEach((card) => {
-    const cardElem = createCard(card, userData);
+    const cardElem = createCard(card, userData._id);
     section.addItem(cardElem);
   });
 })
@@ -54,15 +64,26 @@ Promise.all([api.getUserInfo(), api.getCards()])
 });
 
 
+// const newPromise = new Promise(function (resolve, reject) {
+//   resolve(res1); // Сразу получим обработанный промис
+// });
+// newPromise
+// .then(() => {
+// })
+// .then(() => {
+// })
+// .catch(thirdAction);
 
-const popupDelete = new PopupWithForm('.delete-popup', handleFormDeleteSubmit);
+
+const popupDelete = new PopupWithSubmit('.delete-popup', openDeleteCardForm);
 
 function openDeleteCardForm(cardId) {
-  popupDelete.open();
+  popupDelete.launch(cardId);
 }
-function handleFormDeleteSubmit() {
-  
-  api.deleteCard(cardId)
+
+
+function handleFormDeleteSubmit(cardId) {
+  return api.deleteCard(cardId)
 }
 
 popupDelete.setEventListeners();  
@@ -70,9 +91,12 @@ popupDelete.setEventListeners();
 
 
 function handleFormCardSubmit(cardSentData) {
+
+  
   api.addNewCard(cardSentData)
   .then((cardResData) => {
-    const cardElem = createCard(cardResData);  
+    cardResData.owner._id = userInfo.getUserID;
+    const cardElem = createCard(cardResData, cardResData.owner._id);  
     section.addItem(cardElem);
   })
   .then(() => {
