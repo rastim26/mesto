@@ -94,7 +94,7 @@ popupDelete.setEventListeners();
 //-----------
 
 function handleFormCardSubmit(cardSentData) {
-  api.addNewCard(cardSentData)
+  return api.addNewCard(cardSentData)
   .then((cardResData) => {
     cardResData.owner._id = userInfo.getUserID;
     const cardElem = createCard(cardResData, cardResData.owner._id);  
@@ -106,7 +106,7 @@ function handleFormCardSubmit(cardSentData) {
 }
 
 function handleFormProfileSubmit(userData) {
-  api.patchUserInfo(userData)
+  return api.patchUserInfo(userData)
   .then((userDataRes) => {
     userInfo.setUserInfo(userDataRes);
   })
@@ -116,7 +116,7 @@ function handleFormProfileSubmit(userData) {
 }
 
 function handleFormAvatarSubmit(imageData) {
-  api.uploadAvatar(imageData.link)
+  return api.uploadAvatar(imageData.link)
   .then((res) => {
     profileAvatarElem.src = res.avatar;
   })
