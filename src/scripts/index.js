@@ -1,7 +1,7 @@
 // import '../pages/index.css'; // добавьте импорт главного файла стилей
 
 import { validationConfig } from "./utils/validationConfig.js";
-import { buttonOpenPopupProfile, buttonOpenPopupCard, formPopupProfileElem, inputNameProfileElem, inputJobProfileElem, formPopupCardElem, buttonOpenPopupAvatar, profileAvatarElem, formPopupAvatarElem } from "./utils/consts.js";
+import { buttonOpenPopupProfile, buttonOpenPopupCard, formPopupProfileElem, inputNameProfileElem, inputJobProfileElem, formPopupCardElem, buttonOpenPopupAvatar, formPopupAvatarElem } from "./utils/consts.js";
 import Card from "./components/Card.js";
 import FormValidator from "./components/FormValidator.js";
 import PopupWithForm from "./components/PopupWithForm.js";
@@ -53,18 +53,12 @@ const popupAvatar = new PopupWithForm('.avatar-popup', handleFormAvatarSubmit);
 const popupProfile = new PopupWithForm('.edit-popup', handleFormProfileSubmit); 
 
 
-const userInfo = new UserInfo({nameElem: ".profile__title", aboutElem: ".profile__subtitle"}, getUserInfo);
+const userInfo = new UserInfo({nameElem: ".profile__title", aboutElem: ".profile__subtitle"});
 
-function getUserInfo() {
-  api.getUserInfo()
-}
 
 Promise.all([api.getUserInfo(), api.getCards()])
 .then(([userData, cards]) => {
   userInfo.setUserInfo(userData);
-
-  profileAvatarElem.src = userData.avatar;
-
 
   cards.forEach((card) => {
     const cardElem = createCard(card, userData._id);
@@ -118,7 +112,7 @@ function handleFormProfileSubmit(userData) {
 function handleFormAvatarSubmit(imageData) {
   return api.uploadAvatar(imageData.link)
   .then((res) => {
-    profileAvatarElem.src = res.avatar;
+    userInfo.setAvatar(res);
   })
   .then(() => {
     popupAvatar.close();
@@ -147,7 +141,7 @@ buttonOpenPopupCard.addEventListener("click", () => {
 }); 
 
 buttonOpenPopupProfile.addEventListener("click", () => {
-  const userData = userInfo.getUserInfo();
+  const userData = userInfo.enterUserInfo();
   popupProfile.open();
   setProfileInputValues(userData);
   validatorFormProfile.resetValidation();

@@ -1,4 +1,3 @@
-const profileAvatarElem = document.querySelector(".profile__avatar");
 const buttonOpenPopupAvatar = document.querySelector(".profile__overlay");
 const buttonOpenPopupProfile = document.querySelector(".profile__edit-button");
 const buttonOpenPopupCard = document.querySelector(".profile__add-button");
@@ -14,4 +13,4 @@ const formPopupCardElem = popupCardElement.querySelector(".add-popup__form");
 const popupAvatarElement = document.querySelector(".avatar-popup");
 const formPopupAvatarElem = popupAvatarElement.querySelector(".avatar-popup__form");
 
-export { buttonOpenPopupProfile, buttonOpenPopupCard, formPopupProfileElem, inputNameProfileElem, inputJobProfileElem, formPopupCardElem, buttonOpenPopupAvatar, profileAvatarElem, formPopupAvatarElem };
+export { buttonOpenPopupProfile, buttonOpenPopupCard, formPopupProfileElem, inputNameProfileElem, inputJobProfileElem, formPopupCardElem, buttonOpenPopupAvatar, formPopupAvatarElem };
