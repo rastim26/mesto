@@ -31,6 +31,7 @@ export default class PopupWithForm extends Popup {
             this._loading();
             this._handleFormSubmit(inputValues)
             .then(() => {
+                this.close();
                 this._buttonElem.textContent = this._buttonElemValue;
             })
         });

@@ -72,15 +72,19 @@ Promise.all([api.getUserInfo(), api.getCards()])
 
 //-----------
 
-const popupDelete = new PopupWithSubmit('.delete-popup', openDeleteCardForm);
+const popupDelete = new PopupWithSubmit('.delete-popup', handleFormDeleteSubmit);
 
-function openDeleteCardForm(cardId) {
-  popupDelete.launch(cardId);
+function openDeleteCardForm(cardId, cardElem) {
+  popupDelete.open(cardId, cardElem);
 }
 
 
-function handleFormDeleteSubmit(cardId) {
+function handleFormDeleteSubmit(cardId, cardElem) {
   return api.deleteCard(cardId)
+  .then(() => {
+    cardElem.remove();
+    cardElem = null; 
+  })
 }
 
 popupDelete.setEventListeners();  
@@ -94,9 +98,6 @@ function handleFormCardSubmit(cardSentData) {
     const cardElem = createCard(cardResData, cardResData.owner._id);  
     section.addItem(cardElem);
   })
-  .then(() => {
-    popupCard.close();
-  })
 }
 
 function handleFormProfileSubmit(userData) {
@@ -104,18 +105,12 @@ function handleFormProfileSubmit(userData) {
   .then((userDataRes) => {
     userInfo.setUserInfo(userDataRes);
   })
-  .then(() => {
-    popupProfile.close();
-  })
 }
 
 function handleFormAvatarSubmit(imageData) {
   return api.uploadAvatar(imageData.link)
   .then((res) => {
     userInfo.setAvatar(res);
-  })
-  .then(() => {
-    popupAvatar.close();
   })
 }
 
@@ -141,7 +136,7 @@ buttonOpenPopupCard.addEventListener("click", () => {
 }); 
 
 buttonOpenPopupProfile.addEventListener("click", () => {
-  const userData = userInfo.enterUserInfo();
+  const userData = userInfo.getUserInfo();
   popupProfile.open();
   setProfileInputValues(userData);
   validatorFormProfile.resetValidation();
