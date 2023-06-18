@@ -1,8 +1,8 @@
-class UserInfo {
+export default class UserInfo {
   constructor(userInfoSelectors) {
-    this._profileTitleElem = document.querySelector(userInfoSelectors.nameElem);
-    this._profileSubtitleElem = document.querySelector(userInfoSelectors.aboutElem);
-    this._profileAvatarElem = document.querySelector(".profile__avatar");
+    this._profileTitleElem = document.querySelector(userInfoSelectors.name);
+    this._profileSubtitleElem = document.querySelector(userInfoSelectors.about);
+    this._profileAvatarElem = document.querySelector(userInfoSelectors.avatar);
   }
 
   getUserInfo() {
@@ -13,7 +13,6 @@ class UserInfo {
   }
 
   getUserID = () => {
-    this.setUserInfo();
     return this._profileSubtitleElem.getAttribute('data-user-id');
   }
 
@@ -28,5 +27,3 @@ class UserInfo {
     this.setAvatar(userData);
   }
 }
-
-export const userInfo = new UserInfo({ nameElem: ".profile__title", aboutElem: ".profile__subtitle" });

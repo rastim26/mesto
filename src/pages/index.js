@@ -1,15 +1,15 @@
-import '../pages/index.css'; // добавьте импорт главного файла стилей
+import './index.css'; // добавьте импорт главного файла стилей
 
-import { validationConfig } from "./utils/validationConfig.js";
-import { buttonOpenPopupProfile, buttonOpenPopupCard, formPopupProfileElem, inputNameProfileElem, inputJobProfileElem, formPopupCardElem, buttonOpenPopupAvatar, formPopupAvatarElem } from "./utils/consts.js";
-import Card from "./components/Card.js";
-import FormValidator from "./components/FormValidator.js";
-import PopupWithForm from "./components/PopupWithForm.js";
-import PopupWithConfirmation from "./components/PopupWithConfirmation.js";
-import PopupWithImage from "./components/PopupWithImage.js";
-import Section from "./components/Section.js";
-import { userInfo } from "./components/UserInfo.js";
-import { api } from "./components/Api.js";
+import { validationConfig } from "../scripts/utils/validationConfig.js";
+import { buttonOpenPopupProfile, buttonOpenPopupCard, formPopupProfileElem, inputNameProfileElem, inputJobProfileElem, formPopupCardElem, buttonOpenPopupAvatar, formPopupAvatarElem } from "../scripts/utils/consts.js";
+import Card from "../scripts/components/Card.js";
+import FormValidator from "../scripts/components/FormValidator.js";
+import PopupWithForm from "../scripts/components/PopupWithForm.js";
+import PopupWithConfirmation from "../scripts/components/PopupWithConfirmation.js";
+import PopupWithImage from "../scripts/components/PopupWithImage.js";
+import Section from "../scripts/components/Section.js";
+import UserInfo from "../scripts/components/UserInfo.js";
+import { api } from "../scripts/components/Api.js";
 
 const likeCard = (cardId) => {
   return api.likeCard(cardId)
@@ -35,6 +35,11 @@ const createCard = (cardData, userId) => {
   return cardElem;
 };
 
+const userInfo = new UserInfo({
+  name: ".profile__title", 
+  about: ".profile__subtitle",
+  avatar: ".profile__avatar",
+});
 
 const section = new Section({
   // items: initialCards, 
@@ -62,15 +67,21 @@ function handleFormDeleteSubmit(cardId, cardElem) {
       cardElem.remove();
       cardElem = null;
     })
+    .catch((err) => {
+      console.log(err);
+    }); 
 }
 
 function handleFormCardSubmit(cardSentData) {
   return api.addNewCard(cardSentData)
     .then((cardResData) => {
-      cardResData.owner._id = userInfo.getUserID;
+      // cardResData.owner._id = userInfo.getUserID();
       const cardElem = createCard(cardResData, cardResData.owner._id);
       section.addItem(cardElem);
     })
+    .catch((err) => {
+      console.log(err);
+    }); 
 }
 
 function handleFormProfileSubmit(userData) {
@@ -78,6 +89,9 @@ function handleFormProfileSubmit(userData) {
     .then((userDataRes) => {
       userInfo.setUserInfo(userDataRes);
     })
+    .catch((err) => {
+      console.log(err);
+    }); 
 }
 
 function handleFormAvatarSubmit(imageData) {
@@ -85,6 +99,9 @@ function handleFormAvatarSubmit(imageData) {
     .then((res) => {
       userInfo.setAvatar(res);
     })
+    .catch((err) => {
+      console.log(err);
+    }); 
 }
 
 function setProfileInputValues(userData) {
@@ -96,11 +113,7 @@ function setProfileInputValues(userData) {
 Promise.all([api.getUserInfo(), api.getCards()])
   .then(([userData, cards]) => {
     userInfo.setUserInfo(userData);
-
-    cards.forEach((card) => {
-      const cardElem = createCard(card, userData._id);
-      section.renderer(cardElem);
-    });
+    section.renderItems(cards, userData._id);
   })
   .catch(err => {
     console.log(err);

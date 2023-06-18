@@ -27,6 +27,9 @@ export default class PopupWithConfirmation extends Popup {
           super.close();
           this._buttonElem.textContent = this._buttonElemValue;
         })
+        .catch((err) => {
+          console.log(err);
+        }); 
     });
   }
 }

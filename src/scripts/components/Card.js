@@ -38,6 +38,9 @@ export default class Card {
       this._cardElem.remove();
       this._cardElem = null;  
     })
+    .catch((err) => {
+      console.log(err);
+    }); 
   }
 
   _showLikes() {
@@ -91,6 +94,9 @@ export default class Card {
         this._cardData = res;
         this._likeDisplayElem.textContent = res.likes.length;
       })
+      .catch((err) => {
+        console.log(err);
+      }); 
     } else {
       this._unlikeCard(this._cardData._id)
       .then((res) => {
@@ -98,6 +104,9 @@ export default class Card {
         this._cardData = res;
         this._likeDisplayElem.textContent = res.likes.length;
       })
+      .catch((err) => {
+        console.log(err);
+      }); 
     }
   }
   

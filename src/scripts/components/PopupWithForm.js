@@ -10,10 +10,6 @@ export default class PopupWithForm extends Popup {
     this._buttonElemValue = this._buttonElem.textContent;
   }
 
-  open() {
-    super.open();
-  }
-
   close() {
     super.close();
     this._formElem.reset();
@@ -32,8 +28,13 @@ export default class PopupWithForm extends Popup {
       this._handleFormSubmit(inputValues)
         .then(() => {
           this.close();
-          this._buttonElem.textContent = this._buttonElemValue;
         })
+        .catch((err) => {
+          console.log(err);
+        })
+        .finally(() => {
+          this._buttonElem.textContent = this._buttonElemValue;
+        });
     });
 
   }
