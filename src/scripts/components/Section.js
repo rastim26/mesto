@@ -5,11 +5,11 @@ export default class Section {
         this._renderer = data.renderer;
     }
 
-    renderer = () => {
-        // this.getServerCards();
+    renderer = (cardElem) => {
+        this._containerElem.append(cardElem);
     }
 
     addItem = (cardElem) => {
-        this._containerElem.append(cardElem);
+        this._containerElem.prepend(cardElem);
     }
 }

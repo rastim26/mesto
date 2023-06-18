@@ -98,7 +98,7 @@ Promise.all([api.getUserInfo(), api.getCards()])
 
   cards.forEach((card) => {
     const cardElem = createCard(card, userData._id);
-    section.addItem(cardElem);
+    section.renderer(cardElem);
   });
 })
 .catch(err => {
