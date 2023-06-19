@@ -3,16 +3,14 @@ export default class Card {
     cardData, 
     cardTemplateSelector, 
     handleCardClick,  
-    openDeleteCardForm,
-    userId, 
-    handleFormDeleteSubmit,
+    onDelete,
+    userId,
     likeCard,
     unlikeCard) {
     this._cardData = cardData;
     this._handleCardClick = handleCardClick;
-    this._openDeleteCardForm = openDeleteCardForm;
+    this._onDelete = onDelete;
     this._userId = userId;
-    this._handleFormDeleteSubmit = handleFormDeleteSubmit;
     this._likeCard = likeCard;
     this._unlikeCard = unlikeCard;
     this._cardElem = document
@@ -30,17 +28,6 @@ export default class Card {
   getCard() {
     this._createCard();
     return this._cardElem;
-  }
-
-  deleteCard() {
-    this._handleFormDeleteSubmit(this._cardData._id)
-    .then(() => {
-      this._cardElem.remove();
-      this._cardElem = null;  
-    })
-    .catch((err) => {
-      console.log(err);
-    }); 
   }
 
   _showLikes() {
@@ -72,8 +59,7 @@ export default class Card {
   _setEventListeners() {
     this._likeButtonCardElem.addEventListener("click", this._toggleLike);
     this._delCardElem.addEventListener("click", () => {
-      // this.deleteCard()
-      this._openDeleteCardForm(this._cardData._id, this._cardElem);
+      this._onDelete(this._cardData._id, this._cardElem);
     });
     this._imgCardElem.addEventListener("click", () => {
       this._handleCardClick(this._cardData.name, this._cardData.link);

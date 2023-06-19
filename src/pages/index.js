@@ -19,14 +19,16 @@ const unlikeCard = (cardId) => {
   return api.unlikeCard(cardId)
 }
 
-const createCard = (cardData, userId) => {
+const createCard = (cardData) => {
+
+  const userId = userInfo.userData._id;
+
   const card = new Card(
     cardData,
     ".template-card",
     popupImageElem.open,
-    openDeleteCardForm,
+    onDelete,
     userId,
-    handleFormDeleteSubmit,
     likeCard,
     unlikeCard,
   );
@@ -42,7 +44,6 @@ const userInfo = new UserInfo({
 });
 
 const section = new Section({
-  // items: initialCards, 
   renderer: createCard
 }, ".cards");
 
@@ -50,38 +51,36 @@ const validatorFormCard = new FormValidator(validationConfig, formPopupCardElem)
 const validatorFormAvatar = new FormValidator(validationConfig, formPopupAvatarElem);
 const validatorFormProfile = new FormValidator(validationConfig, formPopupProfileElem);
 
+const popupDelete = new PopupWithConfirmation('.delete-popup');
 const popupImageElem = new PopupWithImage('.image-popup');
-const popupDelete = new PopupWithConfirmation('.delete-popup', handleFormDeleteSubmit);
 const popupCard = new PopupWithForm('.add-popup', handleFormCardSubmit);
 const popupAvatar = new PopupWithForm('.avatar-popup', handleFormAvatarSubmit);
 const popupProfile = new PopupWithForm('.edit-popup', handleFormProfileSubmit);
 
 
-function openDeleteCardForm(cardId, cardElem) {
-  popupDelete.open(cardId, cardElem);
+function onDelete(cardId, cardElem) {
+  popupDelete.open(() => {
+    return api.deleteCard(cardId)
+      .then(() => {
+        cardElem.remove();
+        cardElem = null;
+      })
+      .catch((err) => {
+        console.log(err);
+      }); 
+  });
 }
 
-function handleFormDeleteSubmit(cardId, cardElem) {
-  return api.deleteCard(cardId)
-    .then(() => {
-      cardElem.remove();
-      cardElem = null;
-    })
-    .catch((err) => {
-      console.log(err);
-    }); 
-}
 
-function handleFormCardSubmit(cardSentData) {
-  return api.addNewCard(cardSentData)
-    .then((cardResData) => {
-      // cardResData.owner._id = userInfo.getUserID();
-      const cardElem = createCard(cardResData, cardResData.owner._id);
+function handleFormCardSubmit(cardDataSent) {
+  return api.addNewCard(cardDataSent)
+    .then((cardDataRes) => {
+      const cardElem = createCard(cardDataRes);
       section.addItem(cardElem);
     })
     .catch((err) => {
       console.log(err);
-    }); 
+    });
 }
 
 function handleFormProfileSubmit(userData) {
@@ -113,7 +112,7 @@ function setProfileInputValues(userData) {
 Promise.all([api.getUserInfo(), api.getCards()])
   .then(([userData, cards]) => {
     userInfo.setUserInfo(userData);
-    section.renderItems(cards, userData._id);
+    section.renderItems(cards);
   })
   .catch(err => {
     console.log(err);
