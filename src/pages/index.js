@@ -126,7 +126,7 @@ validatorFormProfile.enableValidation();
 
 buttonOpenPopupAvatar.addEventListener("click", () => {
   popupAvatar.open();
-  validatorFormCard.resetValidation();
+  validatorFormAvatar.resetValidation();
 });
 
 buttonOpenPopupCard.addEventListener("click", () => {
