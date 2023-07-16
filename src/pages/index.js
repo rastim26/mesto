@@ -9,7 +9,7 @@ import PopupWithConfirmation from "../scripts/components/PopupWithConfirmation.j
 import PopupWithImage from "../scripts/components/PopupWithImage.js";
 import Section from "../scripts/components/Section.js";
 import UserInfo from "../scripts/components/UserInfo.js";
-import { api } from "../scripts/components/Api.js";
+import { api } from "../scripts/components/api.js";
 
 const likeCard = (cardId) => {
   return api.likeCard(cardId)
